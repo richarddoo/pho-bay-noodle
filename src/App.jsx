@@ -40,8 +40,8 @@ const locations = [
     shortDays: ["Friday"],
     name: "The Beaches Market",
     suburb: "Narrabeen",
-    time: "4:00pm – 9:00pm",
-    maps: "https://www.google.com/maps/search/?api=1&query=The+Beaches+Market+Narrabeen",
+    time: "8:00am – 1:00pm",
+    maps: "https://maps.app.goo.gl/hyAJh1WPExMFBG8a8",
   },
 ];
 
@@ -295,23 +295,7 @@ export default function App() {
             ))}
           </div>
 
-          <div className="mt-10 overflow-hidden rounded-[2rem] border border-[#245AA6]/20 bg-white shadow-lg shadow-[#123A70]/5">
-            <table className="w-full text-left text-sm">
-              <thead className="bg-[#123A70] text-white">
-                <tr>
-                  <th className="px-5 py-4">Day</th>
-                  <th className="px-5 py-4">Location</th>
-                  <th className="px-5 py-4">Time</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-[#245AA6]/10">
-                <tr className="transition hover:bg-[#EAF3FF]"><td className="px-5 py-4 font-bold">Wednesday</td><td className="px-5 py-4">Entertainment Quarter</td><td className="px-5 py-4">9:00am – 3:00pm</td></tr>
-                <tr className="transition hover:bg-[#EAF3FF]"><td className="px-5 py-4 font-bold">Thursday</td><td className="px-5 py-4">Hornsby Markets</td><td className="px-5 py-4">8:00am – 2:00pm</td></tr>
-                <tr className="transition hover:bg-[#EAF3FF]"><td className="px-5 py-4 font-bold">Friday</td><td className="px-5 py-4">The Beaches Market, Narrabeen</td><td className="px-5 py-4">4:00pm – 9:00pm</td></tr>
-                <tr className="transition hover:bg-[#EAF3FF]"><td className="px-5 py-4 font-bold">Saturday</td><td className="px-5 py-4">Entertainment Quarter</td><td className="px-5 py-4">9:00am – 3:00pm</td></tr>
-              </tbody>
-            </table>
-          </div>
+          
         </div>
       </section>
 
@@ -358,7 +342,7 @@ export default function App() {
           </div>
           <div className="text-lg leading-8 text-blue-50">
             <p>
-              Pho Bay Noodle started with our mum’s passion for cooking and sharing food with everyone. We’re a family-run Vietnamese food stall serving fresh pho, noodle salads, rice paper rolls and spring rolls across Sydney markets every week.
+              Pho Bay Noodle started with my passion for cooking and sharing food with everyone. We’re a family-run Vietnamese food stall serving fresh pho, noodle salads, rice paper rolls and spring rolls across Sydney markets every week.
             </p>
             <p className="mt-5">
               Every dish is made with care, flavour and the same warmth we grew up with at home.
