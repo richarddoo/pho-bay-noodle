@@ -158,14 +158,18 @@ export default function App() {
       {/* NAV */}
       <header className="sticky top-0 z-50 border-b border-[#245AA6]/15 bg-[#FFF8E8]/90 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
-          <a href="#home" className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={() => scrollToSection("home")}
+            className="flex items-center gap-3"
+          >
             <img
               src={`${import.meta.env.BASE_URL}logo.png`}
               alt="Pho Bay Noodle logo"
               className="h-14 w-auto object-contain transition-transform duration-300 hover:scale-105"
             />
 
-            <div>
+            <div className="text-left">
               <p className="text-lg font-black leading-none tracking-tight text-[#123A70]">
                 Pho Bay Noodle
               </p>
@@ -173,7 +177,7 @@ export default function App() {
                 Sydney Markets
               </p>
             </div>
-          </a>
+          </button>
 
           <nav className="hidden items-center gap-7 text-sm font-bold text-[#123A70] md:flex">
             <button onClick={() => scrollToSection("find")} className="transition hover:text-[#E31B23]">
@@ -203,7 +207,7 @@ export default function App() {
       </header>
 
       {/* HERO */}
-      <section id="home" className="relative overflow-hidden">
+      <section id="home" className="relative overflow-hidden scroll-mt-[70px]">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(36,90,166,0.25),transparent_34%),radial-gradient(circle_at_bottom_right,_rgba(227,27,35,0.11),transparent_36%)]" />
         <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-5 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:px-8 lg:py-24">
           <div>
@@ -386,7 +390,12 @@ export default function App() {
                 <a href="#find" className="rounded-2xl bg-white/10 p-4 font-bold transition hover:-translate-y-1 hover:bg-white hover:text-[#123A70]">Find Us</a>
                 <a href="#menu" className="rounded-2xl bg-white/10 p-4 font-bold transition hover:-translate-y-1 hover:bg-white hover:text-[#123A70]">Menu</a>
                 <a href="#about" className="rounded-2xl bg-white/10 p-4 font-bold transition hover:-translate-y-1 hover:bg-white hover:text-[#123A70]">Our Story</a>
-                <a href="#home" className="rounded-2xl bg-white/10 p-4 font-bold transition hover:-translate-y-1 hover:bg-white hover:text-[#123A70]">Back to Top</a>
+                <button
+                  onClick={() => scrollToSection("home")}
+                  className="w-full text-left rounded-2xl bg-white/10 p-4 font-bold transition hover:-translate-y-1 hover:bg-white hover:text-[#123A70]"
+                >
+                  Back to Top
+                </button>
               </div>
             </div>
           </div>
