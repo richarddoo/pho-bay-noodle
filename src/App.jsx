@@ -25,7 +25,7 @@ const locations = [
     name: "Entertainment Quarter",
     suburb: "Moore Park",
     time: "9:00am – 3:00pm",
-    maps: "https://www.google.com/maps/search/?api=1&query=Entertainment+Quarter+Moore+Park",
+    maps: "https://maps.app.goo.gl/R3BDEMUTLvBkXboC9",
   },
   {
     days: "Thursday",
@@ -33,7 +33,7 @@ const locations = [
     name: "Hornsby Markets",
     suburb: "Hornsby",
     time: "8:00am – 2:00pm",
-    maps: "https://www.google.com/maps/search/?api=1&query=Hornsby+Markets",
+    maps: "https://maps.app.goo.gl/UDYH1Yz6CW1dd1WJ9",
   },
   {
     days: "Friday",
