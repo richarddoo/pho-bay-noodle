@@ -157,13 +157,20 @@ export default function App() {
       {/* NAV */}
       <header className="sticky top-0 z-50 border-b border-[#245AA6]/15 bg-[#FFF8E8]/90 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
-          <a href="#home" className="group flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-[#245AA6] to-[#123A70] text-white shadow-lg shadow-[#123A70]/20 transition-transform group-hover:rotate-3 group-hover:scale-105">
-              <Utensils size={21} />
-            </div>
+          <a href="#home" className="flex items-center gap-3">
+            <img
+              src={`${import.meta.env.BASE_URL}logo.png`}
+              alt="Pho Bay Noodle logo"
+              className="h-14 w-auto object-contain transition-transform duration-300 hover:scale-105"
+            />
+
             <div>
-              <p className="text-lg font-black leading-none tracking-tight text-[#123A70]">Pho Bay Noodle</p>
-              <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#245AA6]">Sydney Markets</p>
+              <p className="text-lg font-black leading-none tracking-tight text-[#123A70]">
+                Pho Bay Noodle
+              </p>
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#245AA6]">
+                Sydney Markets
+              </p>
             </div>
           </a>
 
