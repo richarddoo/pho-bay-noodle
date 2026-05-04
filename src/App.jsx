@@ -7,6 +7,7 @@ import {
   Navigation,
   Heart,
   ExternalLink,
+  ThumbsUp,
 } from "lucide-react";
 
 const COLORS = {
@@ -96,7 +97,7 @@ function SecondaryButton({ href, children }) {
 
 function SocialButton({ href, label, type }) {
   const isFacebook = type === "facebook";
-  const Icon = Heart;
+  const Icon = type === "facebook" ? ThumbsUp : Heart;
 
   return (
     <a
