@@ -1,4 +1,5 @@
 import React, { useMemo } from "react";
+import { useState } from "react";
 import {
   MapPin,
   Clock,
@@ -25,7 +26,7 @@ const locations = [
     shortDays: ["Wednesday", "Saturday"],
     name: "Entertainment Quarter",
     suburb: "Moore Park",
-    time: "9:00am – 3:00pm",
+    time: "8:00am – 2:30pm",
     maps: "https://maps.app.goo.gl/R3BDEMUTLvBkXboC9",
   },
   {
@@ -49,19 +50,23 @@ const locations = [
 const menu = [
   {
     category: "Pho",
-    items: ["Beef", "Chicken"],
-  },
-  {
-    category: "Noodle Salad",
+    image: `${import.meta.env.BASE_URL}menu/pho.jpg`,
     items: ["Beef", "Chicken", "Vegan"],
   },
   {
-    category: "Rice Paper Rolls",
-    items: ["Prawn & Pork", "Beef", "Chicken", "Vegan"],
+    category: "Noodle Salad",
+    image: `${import.meta.env.BASE_URL}menu/noodle-salad.jpg`,
+    items: ["Beef", "Chicken", "Vegan"],
   },
   {
     category: "Spring Rolls",
+    image: `${import.meta.env.BASE_URL}menu/spring-rolls.jpg`,
     items: ["Pork", "Vegan"],
+  },
+  {
+    category: "Rice Paper Rolls",
+    image: `${import.meta.env.BASE_URL}menu/rice-paper.jpg`,
+    items: ["Prawn & Pork", "Beef", "Chicken", "Vegan"],
   },
 ];
 
@@ -152,6 +157,19 @@ export default function App() {
       behavior: "smooth",
     });
   };
+
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [closing, setClosing] = useState(false);
+
+  const closeModal = () => {
+    setClosing(true);
+    setTimeout(() => {
+      setSelectedImage(null);
+      setClosing(false);
+    }, 200);
+  };
+
+  const [opening, setOpening] = useState(false);
 
   return (
     <main className="min-h-screen bg-[#FFF8E8] text-[#111827]">
@@ -258,9 +276,9 @@ export default function App() {
 
           <div className="group relative overflow-hidden rounded-[2rem] bg-[#EAF3FF] shadow-2xl shadow-[#123A70]/20">
             <img
-              src="https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?q=80&w=1400&auto=format&fit=crop"
-              alt="Bowl of Vietnamese pho"
-              className="h-[520px] w-full object-cover transition duration-700 group-hover:scale-105"
+              src={`${import.meta.env.BASE_URL}menu/pho-serve.jpg`}
+              alt="Serving pho at the market"
+              className="h-full w-full object-cover rounded-[2rem] transition duration-700 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#123A70]/75 via-transparent to-transparent" />
             <div className="absolute inset-x-5 bottom-5 rounded-3xl bg-white/95 p-5 shadow-xl backdrop-blur">
@@ -313,24 +331,48 @@ export default function App() {
             <p className="mt-4 text-slate-600">Check out the menu, find us at the market and order fresh at the stall.</p>
           </div>
 
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-6 md:grid-cols-2">
             {menu.map((section) => (
               <div
                 key={section.category}
-                className="group rounded-[2rem] border border-[#245AA6]/10 bg-white p-6 shadow-lg shadow-[#123A70]/5 transition-all duration-300 hover:-translate-y-2 hover:border-[#245AA6]/35 hover:shadow-2xl hover:shadow-[#123A70]/10"
+                className="group min-h-[260px] rounded-[2rem] border border-[#245AA6]/10 bg-white shadow-lg shadow-[#123A70]/5 transition-all duration-300 hover:-translate-y-2 hover:border-[#245AA6]/35 hover:shadow-2xl hover:shadow-[#123A70]/10 overflow-hidden"
               >
-                <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[#245AA6] to-[#123A70] text-white shadow-lg shadow-[#123A70]/20 transition-transform group-hover:rotate-3 group-hover:scale-110">
-                  <Utensils />
+                <div className="flex flex-col sm:flex-row h-full">
+                  
+                  {/* LEFT SIDE (TEXT) */}
+                  <div className="p-6 flex-1">
+                    <h3 className="text-2xl font-black text-[#123A70]">
+                      {section.category}
+                    </h3>
+
+                    <ul className="mt-5 space-y-3">
+                      {section.items.map((item) => (
+                        <li
+                          key={item}
+                          className="flex items-center gap-3 text-lg font-semibold text-slate-700"
+                        >
+                          <span className="h-2.5 w-2.5 rounded-full bg-[#E31B23]" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* RIGHT SIDE (IMAGE) */}
+                  <div className="w-full sm:w-56 h-48 sm:h-auto flex-shrink-0">
+                    <img
+                      src={section.image}
+                      alt={section.category}
+                      onClick={() => {
+                        setSelectedImage(section.image);
+                        setOpening(true);
+                        setTimeout(() => setOpening(false), 10);
+                      }}
+                      className="h-full w-full cursor-pointer object-cover object-center transition duration-500 hover:scale-105 sm:rounded-r-[2rem]"
+                    />
+                  </div>
+
                 </div>
-                <h3 className="text-2xl font-black text-[#123A70]">{section.category}</h3>
-                <ul className="mt-5 space-y-3">
-                  {section.items.map((item) => (
-                    <li key={item} className="flex items-center gap-3 text-lg font-semibold text-slate-700">
-                      <span className="h-2.5 w-2.5 rounded-full bg-[#E31B23]" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
               </div>
             ))}
           </div>
@@ -406,6 +448,34 @@ export default function App() {
           </div>
         </div>
       </footer>
+      {selectedImage && (
+        <div
+          className={`fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm transition-all duration-200 ${
+            closing ? "bg-black/0" : "bg-black/80"
+          }`}
+          onClick={closeModal}
+        >
+          <img
+            src={selectedImage}
+            alt="Preview"
+            className={`max-h-[90vh] max-w-[90vw] rounded-2xl shadow-2xl transition-all duration-300 ${
+              closing
+                ? "scale-90 opacity-0"
+                : opening
+                ? "scale-95 opacity-0"
+                : "scale-100 opacity-100"
+            }`}
+            onClick={(e) => e.stopPropagation()}
+          />
+
+          <button
+            onClick={closeModal}
+            className="absolute top-6 right-6 text-white text-3xl font-bold"
+          >
+            ✕
+          </button>
+        </div>
+      )}
     </main>
   );
 }
