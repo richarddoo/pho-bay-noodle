@@ -202,14 +202,14 @@ export default function App() {
               className="h-14 w-auto object-contain transition-transform duration-300 hover:scale-105"
             />
 
-            <div className="text-left">
+{/*            <div className="text-left">
               <p className="text-lg font-black leading-none tracking-tight text-[#123A70]">
                 Pho Bay Noodle
               </p>
               <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#245AA6]">
                 Sydney Markets
               </p>
-            </div>
+            </div> */}
           </button>
 
           <nav className="hidden items-center gap-7 text-sm font-bold text-[#123A70] md:flex">
