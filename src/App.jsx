@@ -34,7 +34,7 @@ const locations = [
     shortDays: ["Thursday"],
     name: "Hornsby Markets",
     suburb: "Hornsby",
-    time: "8:00am – 2:00pm",
+    time: "8:00am – 2:30pm",
     maps: "https://maps.app.goo.gl/UDYH1Yz6CW1dd1WJ9",
   },
   {
