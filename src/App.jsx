@@ -1,5 +1,4 @@
-import React, { useMemo } from "react";
-import { useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import {
   MapPin,
   Clock,
@@ -125,6 +124,22 @@ function SocialButton({ href, label, type }) {
 export default function App() {
   const today = useMemo(() => getTodayLocation(), []);
 
+  useEffect(() => {
+    if (window.location.hash) {
+      window.history.replaceState(null, "", window.location.pathname);
+    }
+
+    window.history.scrollRestoration = "manual";
+
+    window.scrollTo(0, 0);
+
+    const timer = setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   const todayAnchor = today
     ? "#" + today.shortDays.join("-")
     : "#find";
@@ -182,7 +197,7 @@ export default function App() {
             className="flex items-center gap-3"
           >
             <img
-              src={`${import.meta.env.BASE_URL}logo.png`}
+              src={`${import.meta.env.BASE_URL}logo-v3.png`}
               alt="Pho Bay Noodle logo"
               className="h-14 w-auto object-contain transition-transform duration-300 hover:scale-105"
             />
