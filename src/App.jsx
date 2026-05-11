@@ -205,7 +205,7 @@ export default function App() {
             className="flex items-center gap-3"
           >
             <img
-              src={`${import.meta.env.BASE_URL}logo-v5.png`}
+              src={`${import.meta.env.BASE_URL}logo-v6.png`}
               alt="Pho Bay Noodle logo"
               className="h-14 w-auto object-contain transition-transform duration-300 hover:scale-105"
             />
