@@ -69,6 +69,14 @@ const menu = [
   },
 ];
 
+const restaurantGuruBadge = `
+<link href="https://awards.infcdn.net/2026/circle_v2.css" rel="stylesheet"/>
+<div id="circle-r-ribbon" onclick="if(event.target.nodeName.toLowerCase() != 'a') {window.open(this.querySelector('.r-ribbon_title').href);return 0;}" style="cursor:pointer;overflow:hidden;position:relative;display:flex;flex-direction:column;padding:0;max-width:174px;min-width:174px;height:135px;font:400 10px/normal 'Akrobat Bold','Helvetica Neue','Arial',sans-serif;align-items:center;text-align:center;color:#000!important;text-shadow:none;background:url(https://awards.infcdn.net/img/bg.svg) no-repeat;box-sizing:border-box;">
+  <p style="color:#000;width:140px;font:22px 'Akrobat Black',sans-serif;font-style:italic;transform:rotate(-12deg);position:absolute;top:41px;left:12px;text-align:center;margin:0;">2026</p>
+  <a href="https://restaurantguru.com/Pho-Bay-noodle-Hornsby" class="r-ribbon_title" target="_blank" style="text-transform:uppercase;color:#fff!important;width:140px;font-size:16px;font-family:'Akrobat Bold',sans-serif;font-style:italic;transform:rotate(-12deg);position:absolute;z-index:5;top:72px;left:12px;text-align:center;text-decoration:none;">Pho Bay Noodle</a>
+</div>
+`;
+
 function getTodayLocation() {
   const day = new Date().toLocaleDateString("en-AU", { weekday: "long" });
   return locations.find((location) => location.shortDays.includes(day));
@@ -219,6 +227,10 @@ export default function App() {
 
             <button onClick={() => scrollToSection("menu")} className="transition hover:text-[#E31B23]">
               Menu
+            </button>
+
+            <button onClick={() => scrollToSection("catering")} className="transition hover:text-[#E31B23]">
+              Catering
             </button>
 
             <button onClick={() => scrollToSection("about")} className="transition hover:text-[#E31B23]">
@@ -394,25 +406,82 @@ export default function App() {
         </div>
       </section>
 
+      {/* CATERING */}
+      <section id="catering" className="bg-white px-5 py-16 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid items-center gap-10 rounded-[2rem] border border-[#245AA6]/15 bg-[#EAF3FF] p-6 shadow-xl shadow-[#123A70]/10 lg:grid-cols-[1fr_0.9fr] lg:p-10">
+            <div>
+              <p className="mb-3 text-sm font-black uppercase tracking-[0.25em] text-[#245AA6]">
+                Catering
+              </p>
+
+              <h2 className="text-4xl font-black tracking-tight text-[#123A70]">
+                Catering available on Sundays
+              </h2>
+
+              <p className="mt-4 text-lg leading-8 text-slate-700">
+                Planning an event? Pho Bay Noodle is available for Sunday catering.
+                Call or message <strong>0456 777 999</strong> to book in catering.
+              </p>
+
+              <div className="mt-7 flex flex-wrap gap-3">
+                <a
+                  href="tel:0456777999"
+                  className="rounded-full bg-[#245AA6] px-5 py-3 font-bold text-white shadow-lg shadow-[#123A70]/20 transition hover:-translate-y-1 hover:bg-[#123A70]"
+                >
+                  Call 0456 777 999
+                </a>
+
+                <a
+                  href={`${import.meta.env.BASE_URL}catering.html`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full border border-[#245AA6]/25 bg-white px-5 py-3 font-bold text-[#123A70] transition hover:-translate-y-1 hover:bg-[#FFF8E8]"
+                >
+                  View Catering Food
+                </a>
+              </div>
+            </div>
+
+            <div className="group overflow-hidden rounded-[2rem] shadow-2xl shadow-[#123A70]/20">
+              <img
+                src={`${import.meta.env.BASE_URL}catering.png`}
+                alt="Pho Bay Noodle catering preparation"
+                className="h-[420px] w-full object-cover object-center transition duration-700 group-hover:scale-105"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ABOUT */}
       <section id="about" className="relative overflow-hidden bg-[#123A70] px-5 py-16 text-white lg:px-8">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(255,255,255,0.14),transparent_32%),radial-gradient(circle_at_bottom_left,_rgba(227,27,35,0.18),transparent_34%)]" />
+
         <div className="relative mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
           <div>
             <p className="mb-3 text-sm font-black uppercase tracking-[0.25em] text-[#EAF3FF]">Our story</p>
             <h2 className="text-4xl font-black tracking-tight sm:text-5xl">Family-made, market-loved.</h2>
           </div>
+
           <div className="text-lg leading-8 text-blue-50">
             <p>
               Pho Bay Noodle started with my passion for cooking and sharing food with everyone. We’re a family-run Vietnamese food stall serving fresh pho, noodle salads, rice paper rolls and spring rolls across Sydney markets every week.
             </p>
+
             <p className="mt-5">
               Every dish is made with care, flavour and the same warmth we grew up with at home.
             </p>
+
+            <div className="mt-8 flex justify-center lg:justify-start">
+              <div dangerouslySetInnerHTML={{ __html: restaurantGuruBadge }} />
+            </div>
+
             <div className="mt-8 flex flex-wrap gap-3">
               <PrimaryButton href="#find">
                 <MapPin size={17} /> Find Us This Week
               </PrimaryButton>
+
               <SecondaryButton href="#menu">
                 <Utensils size={17} /> View Menu
               </SecondaryButton>
