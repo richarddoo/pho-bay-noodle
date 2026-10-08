@@ -148,16 +148,11 @@ export default function App() {
     return () => clearTimeout(timer);
   }, []);
 
-  const todayAnchor = today
-    ? "#" + today.shortDays.join("-")
-    : "#find";
-  
   const scrollToToday = () => {
-    const id = today ? today.shortDays.join("-") : "find";
-    const el = document.getElementById(id);
+    const el = document.getElementById("today-location");
     if (!el) return;
 
-    const headerOffset = 50;
+    const headerOffset = (document.querySelector("header")?.getBoundingClientRect().height ?? 0) + 16;
     const elementPosition = el.getBoundingClientRect().top;
     const offsetPosition = elementPosition + window.scrollY - headerOffset;
 
@@ -268,7 +263,7 @@ export default function App() {
               Find Pho Bay Noodle every week at Entertainment Quarter, Hornsby Markets and The Beaches Market Narrabeen.
             </p>
 
-            <div className="mt-8 rounded-[2rem] border border-[#245AA6]/20 bg-white/95 p-6 shadow-2xl shadow-[#123A70]/10 backdrop-blur">
+            <div id="today-location" className="mt-8 rounded-[2rem] border border-[#245AA6]/20 bg-white/95 p-6 shadow-2xl shadow-[#123A70]/10 backdrop-blur">
               <p className="mb-3 flex items-center gap-2 text-sm font-black uppercase tracking-[0.22em] text-[#245AA6]">
                 <MapPin size={18} /> Today’s location
               </p>
