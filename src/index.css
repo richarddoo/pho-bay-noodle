@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* ------------------------------------------------------------------ *
- *  Typefaces — self-hosted variable fonts (no third-party requests)
+ *  Typefaces: self-hosted variable fonts (no third-party requests)
  * ------------------------------------------------------------------ */
 @font-face {
   font-family: "Fraunces";
@@ -329,7 +329,7 @@ img {
 }
 
 /* ------------------------------------------------------------------ *
- *  Hero entrance — the page's one authored motion moment.
+ *  Hero entrance: the page's one authored motion moment.
  * ------------------------------------------------------------------ */
 @keyframes rise-in {
   from {

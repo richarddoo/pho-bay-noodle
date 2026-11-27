@@ -344,7 +344,7 @@ function Header({ today, nextMarket, menuOpen, onOpenMenu }) {
       >
         <a
           href="#home"
-          aria-label="Pho Bay Noodle — back to top"
+          aria-label="Pho Bay Noodle, back to top"
           className="flex shrink-0 items-center transition-opacity hover:opacity-80"
         >
           <img
@@ -381,8 +381,8 @@ function Header({ today, nextMarket, menuOpen, onOpenMenu }) {
             <span className="sm:hidden">{today ? "Today" : "Next"}</span>
             <span className="sr-only">
               {today
-                ? ` — ${today.name}, ${today.suburb}. See today's market`
-                : " — see this week's market locations"}
+                ? `, ${today.name}, ${today.suburb}. See today's market`
+                : ". See this week's market locations"}
             </span>
           </a>
 
@@ -431,7 +431,7 @@ function MobileMenu({ open, onClose, today, nextMarket }) {
         <a
           href="#home"
           onClick={onClose}
-          aria-label="Pho Bay Noodle — back to top"
+          aria-label="Pho Bay Noodle, back to top"
           className="flex items-center"
         >
           <img
