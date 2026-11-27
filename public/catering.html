@@ -1,479 +1,1483 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>Pho Bay Noodle Catering Food</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-    rel="stylesheet"
-  />
-
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: "Inter", sans-serif;
-      background: #FFF8E8;
-      color: #111827;
-    }
-
-    .hero {
-      background:
-        radial-gradient(circle at top left, rgba(36,90,166,0.18), transparent 35%),
-        radial-gradient(circle at bottom right, rgba(227,27,35,0.08), transparent 35%);
-      padding: 90px 24px 70px;
-      text-align: center;
-    }
-
-    .hero h1 {
-      font-size: clamp(2.5rem, 6vw, 5rem);
-      font-weight: 900;
-      letter-spacing: -0.04em;
-      color: #123A70;
-    }
-
-    .hero p {
-      margin-top: 20px;
-      font-size: 1.15rem;
-      color: #475569;
-      line-height: 1.7;
-    }
-
-    .cta {
-      display: inline-block;
-      margin-top: 30px;
-      background: #245AA6;
-      color: white;
-      text-decoration: none;
-      padding: 16px 28px;
-      border-radius: 999px;
-      font-weight: 800;
-      box-shadow: 0 10px 30px rgba(18,58,112,0.2);
-      transition: all 0.25s ease;
-    }
-
-    .cta:hover {
-      transform: translateY(-3px);
-      background: #123A70;
-    }
-
-    .gallery {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 0 24px 90px;
-    }
-
-    .gallery-grid {
-      display: grid;
-      gap: 24px;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    }
-
-    .card {
-      overflow: hidden;
-      border-radius: 32px;
-      background: white;
-      box-shadow: 0 10px 30px rgba(18,58,112,0.08);
-      transition: all 0.3s ease;
-      cursor: pointer;
-    }
-
-    .card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 18px 40px rgba(18,58,112,0.14);
-    }
-
-    .card img {
-      width: 100%;
-      height: 340px;
-      object-fit: cover;
-      object-position: center;
-      transition: transform 0.6s ease;
-      display: block;
-    }
-
-    .card:hover img {
-      transform: scale(1.06);
-    }
-
-    .card-content {
-      padding: 22px;
-    }
-
-    .card-content h3 {
-      font-size: 1.35rem;
-      font-weight: 900;
-      color: #123A70;
-    }
-
-    .card-content p {
-      margin-top: 10px;
-      color: #64748b;
-      line-height: 1.7;
-    }
-
-    .footer {
-      background: linear-gradient(135deg, #0B2447, #123A70, #245AA6);
-      color: white;
-      text-align: center;
-      padding: 50px 24px;
-    }
-
-    .footer h2 {
-      font-size: 2rem;
-      font-weight: 900;
-    }
-
-    .footer p {
-      margin-top: 14px;
-      font-size: 1.05rem;
-      color: rgba(255,255,255,0.88);
-    }
-
-    .footer a {
-      color: white;
-      text-decoration: none;
-      font-weight: 800;
-    }
-
-    .modal {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.84);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.25s ease;
-      z-index: 999;
-      backdrop-filter: blur(10px);
-    }
-
-    .modal.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .modal img {
-      max-width: 92vw;
-      max-height: 92vh;
-      border-radius: 24px;
-      transform: scale(0.92);
-      transition: transform 0.3s ease;
-      box-shadow: 0 30px 60px rgba(0,0,0,0.35);
-    }
-
-    .modal.active img {
-      transform: scale(1);
-    }
-
-    .close {
-      position: absolute;
-      top: 26px;
-      right: 30px;
-      color: white;
-      font-size: 2rem;
-      font-weight: 900;
-      cursor: pointer;
-      user-select: none;
-    }
-
-    .hero-actions {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.2rem;
-  margin-top: 2rem;
-}
-
-.social-inline {
-  display: flex;
-  align-items: center;
-  gap: 0.9rem;
-  flex-wrap: wrap;
-  justify-content: center;
-  color: #123A70;
-  font-weight: 700;
-}
-
-.primary-btn,
-.social-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.55rem;
-  border-radius: 999px;
-  padding: 0.95rem 1.4rem;
-  font-weight: 900;
-  text-decoration: none;
-  color: white;
-  box-shadow: 0 10px 25px rgba(18, 58, 112, 0.2);
-  transition: all 0.3s ease;
-}
-
-.primary-btn {
-  background: #245AA6;
-}
-
-.primary-btn:hover {
-  background: #123A70;
-  transform: translateY(-4px);
-}
-
-.social-btn:hover {
-  transform: translateY(-4px) scale(1.04);
-  box-shadow: 0 16px 35px rgba(18, 58, 112, 0.25);
-}
-
-.instagram-btn {
-  background: linear-gradient(135deg, #833AB4, #E1306C, #F77737);
-}
-
-.facebook-btn {
-  background: linear-gradient(135deg, #1877F2, #245AA6);
-}
-
-.external {
-  opacity: 0.8;
-  transition: transform 0.25s ease;
-}
-
-.social-btn:hover .external {
-  transform: translateX(2px);
-}
-
-@media (max-width: 640px) {
-  .hero {
-    padding: 70px 22px 50px;
-  }
-
-  .hero-actions {
-    gap: 1rem;
-  }
-
-  .primary-btn,
-  .social-btn {
-    width: 100%;
-    max-width: 340px;
-    padding: 1rem 1.2rem;
-  }
-
-  .social-inline {
-    flex-direction: column;
-    gap: 1rem;
-    width: 100%;
-  }
-
-  .social-inline span {
-    width: 100%;
-    text-align: center;
-  }
-}
-  </style>
-</head>
-
-<body>
-
-  <section class="hero">
-    <h1>Catering Food</h1>
-
-    <p>
-        Pho Bay Noodle is available for Sunday catering events.<br />
-        Call or message <strong>0456 777 999</strong> to book your catering.
-    </p>
-
-    <div class="hero-actions">
-        <a class="primary-btn" href="tel:0456777999">
-            <span class="icon">☎</span>
-            Call 0456 777 999
-        </a>
-
-        <div class="social-inline">
-            <span>Or message us on</span>
-
-            <a
-            href="https://www.instagram.com/phobaynoodle/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="social-btn instagram-btn"
-            >
-            <span class="icon">♥</span>
-            Instagram
-            <span class="external">↗</span>
-            </a>
-
-            <a
-            href="https://www.facebook.com/phobaynoodle/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="social-btn facebook-btn"
-            >
-            <span class="icon">👍</span>
-            Facebook
-            <span class="external">↗</span>
-            </a>
-        </div>
-        </div>
-    </section>
-
-  <section class="gallery">
-    <div class="gallery-grid">
-
-        <div class="card">
-            <img src="./catering_menu/image1.png" alt="Vietnamese catering food" />
-            <div class="card-content">
-            <h3>Large Event Catering</h3>
-            <p>Perfect for birthdays, work functions and family celebrations.</p>
-            </div>
-        </div>
-
-        <div class="card">
-            <img src="./catering_menu/image2.png" alt="Rice paper rolls catering" />
-            <div class="card-content">
-            <h3>Premium Buffet Setup</h3>
-            <p>Authentic Vietnamese banquet style catering experience.</p>
-            </div>
-        </div>
-
-        <div class="card">
-            <img src="./catering_menu/image3.png" alt="Noodle salad catering" />
-            <div class="card-content">
-            <h3>Event Presentation</h3>
-            <p>Beautifully presented catering tables for all occasions.</p>
-            </div>
-        </div>
-
-        <div class="card">
-            <img src="./catering_menu/image4.png" alt="Spring rolls and rice paper rolls" />
-            <div class="card-content">
-            <h3>Fresh & Crispy Mix</h3>
-            <p>Combination platters with spring rolls and rice paper rolls.</p>
-            </div>
-        </div>
-
-        <div class="card">
-            <img src="./catering_menu/image5.png" alt="Vietnamese prawn salad" />
-            <div class="card-content">
-            <h3>Noodle Salad Bowls</h3>
-            <p>Market favourites perfect for parties and catering platters.</p>
-            </div>
-        </div>
-
-        <div class="card">
-            <img src="./catering_menu/image6.png" alt="Vietnamese buffet catering" />
-            <div class="card-content">
-            <h3>Authentic Vietnamese Flavours</h3>
-            <p>Family recipes cooked fresh for every catering booking.</p>
-            </div>
-        </div>
-
-        <div class="card">
-            <img src="./catering_menu/image7.png" alt="Vietnamese buffet spread" />
-            <div class="card-content">
-            <h3>Prawn Salad Catering</h3>
-            <p>Fresh herbs, vermicelli noodles and premium seafood options.</p>
-            </div>
-        </div>
-
-        <div class="card">
-            <img src="./catering_menu/image8.png" alt="Vietnamese catering event setup" />
-            <div class="card-content">
-            <h3>Fresh Vietnamese Salads</h3>
-            <p>Traditional Vietnamese flavours prepared fresh for events and gatherings.</p>
-            </div>
-        </div>
-
-        <div class="card">
-            <img src="./catering_menu/image9.png" alt="Vietnamese catering bowls" />
-            <div class="card-content">
-            <h3>Rice Paper Rolls</h3>
-            <p>Fresh handmade rolls with signature Pho Bay dipping sauces.</p>
-            </div>
-        </div>
-
-        <div class="card">
-            <img src="./catering_menu/image10.png" alt="Vietnamese finger food catering" />
-            <div class="card-content">
-            <h3>Fresh Market Bowls</h3>
-            <p>Customisable bowls with fresh herbs, meats and crunchy toppings.</p>
-            </div>
-        </div>
-
-        <div class="card">
-            <img src="./catering_menu/image11.png" alt="Vietnamese seafood catering" />
-            <div class="card-content">
-            <h3>Finger Food Catering</h3>
-            <p>Small bites and shared plates ideal for events and parties.</p>
-            </div>
-        </div>
-
-        <div class="card">
-            <img src="./catering_menu/image12.png" alt="Close up Vietnamese catering food" />
-            <div class="card-content">
-            <h3>Seafood Catering Options</h3>
-            <p>Fresh prawns and Vietnamese seafood dishes available.</p>
-            </div>
-        </div>
-
-        </div>
-
-    </div>
-  </section>
-
-  <section class="footer">
-    <h2>Book Catering</h2>
-
-    <p>
-      Call or message
-      <a href="tel:0456777999">0456 777 999</a>
-      for Sunday catering bookings.
-    </p>
-  </section>
-
-  <div class="modal" id="modal">
-    <span class="close" id="close">✕</span>
-    <img id="modalImage" src="" alt="Expanded catering food image" />
-  </div>
-
-  <script>
-    const cards = document.querySelectorAll(".card img");
-    const modal = document.getElementById("modal");
-    const modalImage = document.getElementById("modalImage");
-    const close = document.getElementById("close");
-
-    cards.forEach((img) => {
-      img.addEventListener("click", () => {
-        modalImage.src = img.src;
-        modal.classList.add("active");
-      });
-    });
-
-    close.addEventListener("click", () => {
-      modal.classList.remove("active");
-    });
-
-    modal.addEventListener("click", (e) => {
-      if (e.target === modal) {
-        modal.classList.remove("active");
+<!doctype html>
+<html lang="en-AU">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sunday catering · Pho Bay Noodle</title>
+    <meta
+      name="description"
+      content="Sunday catering from Pho Bay Noodle. Fresh Vietnamese platters, noodle salads, spring rolls and rice paper rolls for birthdays, functions and family celebrations. Call or message 0456 777 999."
+    />
+    <meta name="theme-color" content="#08245c" />
+    <link rel="canonical" href="https://phobaynoodle.com.au/catering.html" />
+    <link rel="icon" type="image/png" sizes="64x64" href="./favicon-64.png" />
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Pho Bay Noodle" />
+    <meta property="og:title" content="Sunday catering · Pho Bay Noodle" />
+    <meta
+      property="og:description"
+      content="Fresh Vietnamese catering for Sundays. Call or message 0456 777 999 to book."
+    />
+    <meta property="og:url" content="https://phobaynoodle.com.au/catering.html" />
+    <meta property="og:image" content="https://phobaynoodle.com.au/og-image.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link
+      rel="preload"
+      href="./fonts/fraunces-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="./fonts/fraunces-italic-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="./fonts/instrument-sans-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
+    <style>
+      @font-face {
+        font-family: "Fraunces";
+        font-style: normal;
+        font-weight: 100 900;
+        font-display: swap;
+        src: url("./fonts/fraunces-latin.woff2") format("woff2");
       }
-    });
-  </script>
+      @font-face {
+        font-family: "Fraunces";
+        font-style: italic;
+        font-weight: 100 900;
+        font-display: swap;
+        src: url("./fonts/fraunces-italic-latin.woff2") format("woff2");
+      }
+      @font-face {
+        font-family: "Instrument Sans";
+        font-style: normal;
+        font-weight: 400 700;
+        font-display: swap;
+        src: url("./fonts/instrument-sans-latin.woff2") format("woff2");
+      }
 
-</body>
+      :root {
+        --paper: #f8efda;
+        --paper-deep: #f0e2c4;
+        --cream: #fffaf0;
+        --ink: #08245c;
+        --ink-soft: #123a70;
+        --red: #c93424;
+        --gold: #f6b70b;
+        --body: #333e50;
+        --display: "Fraunces", "Iowan Old Style", Georgia, serif;
+        --sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        -webkit-text-size-adjust: 100%;
+      }
+
+      section[id] {
+        scroll-margin-top: 6rem;
+      }
+
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--body);
+        font-family: var(--sans);
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      * {
+        scrollbar-color: var(--gold) rgba(8, 36, 92, 0.06);
+        scrollbar-width: thin;
+      }
+
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: 9000;
+        pointer-events: none;
+        opacity: 0.032;
+        mix-blend-mode: multiply;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      }
+
+      ::selection {
+        background: var(--gold);
+        color: var(--ink);
+      }
+
+      :focus-visible {
+        outline: 2px solid var(--ink);
+        outline-offset: 3px;
+      }
+
+      .on-dark :focus-visible {
+        outline-color: var(--gold);
+      }
+
+      img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .skip-link {
+        position: absolute;
+        top: 0.75rem;
+        left: 0.75rem;
+        z-index: 2000;
+        transform: translateY(-200%);
+        background: var(--ink);
+        padding: 0.75rem 1rem;
+        color: var(--cream);
+        font-size: 0.8125rem;
+        font-weight: 600;
+        text-decoration: none;
+      }
+
+      .skip-link:focus {
+        transform: translateY(0);
+      }
+
+      button {
+        font: inherit;
+        color: inherit;
+      }
+
+      .shell {
+        width: 100%;
+        max-width: 1440px;
+        margin-inline: auto;
+        padding-inline: 1rem;
+      }
+
+      @media (min-width: 640px) {
+        .shell {
+          padding-inline: 2rem;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .shell {
+          padding-inline: 3rem;
+        }
+      }
+
+      .micro {
+        font-size: 0.6875rem;
+        font-weight: 600;
+        line-height: 1.2;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        border-bottom: 1px solid rgba(8, 36, 92, 0.15);
+        background: rgba(248, 239, 218, 0.92);
+        backdrop-filter: blur(12px);
+      }
+
+      .site-header .bar {
+        display: flex;
+        min-height: 5rem;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        transition: min-height 320ms cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      @media (min-width: 640px) {
+        .site-header .bar {
+          min-height: 6rem;
+        }
+      }
+
+      .site-header.is-scrolled .bar {
+        min-height: 4rem;
+      }
+
+      @media (min-width: 640px) {
+        .site-header.is-scrolled .bar {
+          min-height: 5rem;
+        }
+      }
+
+      .brand {
+        display: inline-flex;
+        min-height: 2.75rem;
+        align-items: center;
+        text-decoration: none;
+      }
+
+      .brand img {
+        height: 3.5rem;
+        width: auto;
+        object-fit: contain;
+        transition: height 320ms cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      @media (min-width: 640px) {
+        .brand img {
+          height: 4.5rem;
+        }
+      }
+
+      .site-header.is-scrolled .brand img {
+        height: 3rem;
+      }
+
+      @media (min-width: 640px) {
+        .site-header.is-scrolled .brand img {
+          height: 3.5rem;
+        }
+      }
+
+      .back-link {
+        display: inline-flex;
+        min-height: 3rem;
+        align-items: center;
+        gap: 0.5rem;
+        border-bottom: 1px solid rgba(8, 36, 92, 0.3);
+        color: var(--ink);
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-decoration: none;
+        text-transform: uppercase;
+        transition: min-height 320ms cubic-bezier(0.16, 1, 0.3, 1),
+          border-color 200ms ease, color 200ms ease;
+      }
+
+      .site-header.is-scrolled .back-link {
+        min-height: 2.75rem;
+      }
+
+      .back-link:hover {
+        border-color: var(--ink);
+        color: var(--red);
+      }
+
+      .back-link .short {
+        display: none;
+      }
+
+      @media (max-width: 399px) {
+        .back-link .long {
+          display: none;
+        }
+        .back-link .short {
+          display: inline;
+        }
+      }
+
+      .hero {
+        padding-block: 3rem 2.5rem;
+      }
+
+      .hero-grid {
+        display: grid;
+        gap: 2.5rem;
+      }
+
+      @media (min-width: 1024px) {
+        .hero-grid {
+          grid-template-columns: 1.1fr 0.9fr;
+          align-items: center;
+          gap: 4rem;
+        }
+      }
+
+      .hero-photo {
+        position: relative;
+        margin: 0;
+      }
+
+      .hero-photo .frame {
+        position: relative;
+        overflow: hidden;
+        background: var(--ink-soft);
+      }
+
+      .hero-photo img {
+        width: 100%;
+        aspect-ratio: 4 / 5;
+        object-fit: cover;
+      }
+
+      @media (min-width: 640px) and (max-width: 1023px) {
+        .hero-photo img {
+          aspect-ratio: 16 / 10;
+        }
+      }
+
+      .hero-photo .tag {
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: var(--gold);
+        padding: 0.5rem 0.85rem;
+        color: var(--ink);
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .hero-photo figcaption {
+        margin-top: 0.85rem;
+        border-top: 1px solid rgba(8, 36, 92, 0.2);
+        padding-top: 0.7rem;
+        color: rgba(8, 36, 92, 0.7);
+        font-size: 0.875rem;
+        line-height: 1.5;
+      }
+
+      @media (min-width: 640px) {
+        .hero {
+          padding-block: 4.5rem 3.5rem;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .hero {
+          padding-block: 6rem 4.5rem;
+        }
+      }
+
+      .hero h1 {
+        max-width: 12ch;
+        margin: 0;
+        color: var(--ink);
+        font-family: var(--display);
+        font-size: clamp(2.8rem, 8vw, 6.2rem);
+        font-weight: 600;
+        letter-spacing: -0.035em;
+        line-height: 0.92;
+        text-wrap: balance;
+      }
+
+      .hero h1 em {
+        font-weight: 600;
+        letter-spacing: -0.03em;
+      }
+
+      .hero .lede {
+        max-width: 42ch;
+        margin: 1.75rem 0 0;
+        font-size: 1.0625rem;
+        line-height: 1.7;
+        text-wrap: pretty;
+      }
+
+      @media (min-width: 640px) {
+        .hero .lede {
+          font-size: 1.1875rem;
+        }
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.75rem 1.75rem;
+        margin-top: 1.75rem;
+      }
+
+      .cta {
+        display: inline-flex;
+        min-height: 3.25rem;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem;
+        border: 1px solid var(--ink);
+        border-radius: 2px;
+        background: var(--ink);
+        padding: 0.9rem 1.4rem;
+        color: var(--cream);
+        font-size: 0.8125rem;
+        font-weight: 600;
+        letter-spacing: 0.09em;
+        line-height: 1;
+        text-decoration: none;
+        text-transform: uppercase;
+        transition: background-color 240ms ease, border-color 240ms ease,
+          color 240ms ease, transform 240ms ease;
+      }
+
+      .cta:hover {
+        border-color: var(--gold);
+        background: var(--gold);
+        color: var(--ink);
+        transform: translateY(-2px);
+      }
+
+      .text-link {
+        display: inline-flex;
+        min-height: 3.25rem;
+        align-items: center;
+        gap: 0.5rem;
+        border-bottom: 1px solid rgba(8, 36, 92, 0.3);
+        padding-block: 0.5rem;
+        color: var(--ink);
+        font-size: 0.8125rem;
+        font-weight: 600;
+        letter-spacing: 0.09em;
+        line-height: 1;
+        text-decoration: none;
+        text-transform: uppercase;
+        transition: border-color 200ms ease, gap 200ms ease;
+      }
+
+      .text-link:hover {
+        gap: 0.75rem;
+        border-color: var(--ink);
+      }
+
+      .ticket {
+        display: flex;
+        flex-direction: column;
+        margin-top: 1.75rem;
+        gap: 1rem;
+        border: 1px solid rgba(8, 36, 92, 0.25);
+        background: var(--gold);
+        padding: 1.25rem;
+        color: var(--ink);
+      }
+
+      @media (min-width: 640px) {
+        .ticket {
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-between;
+          padding: 1.1rem 1.4rem;
+        }
+      }
+
+      .ticket .label {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        opacity: 0.8;
+      }
+
+      .ticket strong {
+        display: block;
+        margin-top: 0.2rem;
+        font-family: var(--display);
+        font-size: 1.45rem;
+        font-weight: 600;
+        line-height: 1.1;
+      }
+
+      .ticket a {
+        display: inline-flex;
+        min-height: 2.75rem;
+        align-items: center;
+        gap: 0.5rem;
+        border: 1px solid rgba(8, 36, 92, 0.35);
+        padding: 0.55rem 1rem;
+        font-size: 0.6875rem;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-decoration: none;
+        text-transform: uppercase;
+        transition: background-color 200ms ease, color 200ms ease;
+      }
+
+      .ticket a:hover {
+        background: var(--ink);
+        color: var(--cream);
+      }
+
+      .band {
+        overflow: hidden;
+        border-block: 1px solid var(--ink);
+        background: var(--ink);
+        color: var(--cream);
+      }
+
+      .band .inner {
+        display: flex;
+        min-height: 3.25rem;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.35rem 1.5rem;
+        padding-block: 0.75rem;
+        padding-inline: 1rem;
+      }
+
+      @media (min-width: 640px) {
+        .band .inner {
+          padding-inline: 2rem;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .band .inner {
+          padding-inline: 3rem;
+        }
+      }
+
+      .band-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.1rem 1.5rem;
+      }
+
+      .band span {
+        font-family: var(--display);
+        font-size: 1.2rem;
+        font-style: italic;
+        line-height: 1.25;
+      }
+
+      .gallery {
+        padding-block: 3rem 4.5rem;
+      }
+
+      @media (min-width: 640px) {
+        .gallery {
+          padding-block: 4rem 6rem;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .gallery {
+          padding-block: 5rem 7rem;
+        }
+      }
+
+      .gallery-head {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-bottom: 2.5rem;
+      }
+
+      @media (min-width: 768px) {
+        .gallery-head {
+          flex-direction: row;
+          align-items: end;
+          justify-content: space-between;
+          margin-bottom: 3rem;
+        }
+      }
+
+      .gallery-head h2 {
+        max-width: 14ch;
+        margin: 0;
+        color: var(--ink);
+        font-family: var(--display);
+        font-size: clamp(2.2rem, 4.6vw, 3.9rem);
+        font-weight: 600;
+        letter-spacing: -0.03em;
+        line-height: 0.95;
+        text-wrap: balance;
+      }
+
+      .gallery-head p {
+        max-width: 34ch;
+        margin: 0;
+        color: rgba(8, 36, 92, 0.7);
+        font-size: 1rem;
+        line-height: 1.65;
+        text-wrap: pretty;
+      }
+
+      @media (min-width: 768px) {
+        .gallery-head p {
+          text-align: right;
+        }
+      }
+
+      .plate-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1.75rem 1rem;
+        border-top: 1px solid rgba(8, 36, 92, 0.25);
+        padding-top: 2rem;
+      }
+
+      @media (max-width: 359px) {
+        .plate-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (min-width: 600px) {
+        .plate-grid {
+          gap: 2.5rem 1.5rem;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .plate-grid {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 3rem 2rem;
+          padding-top: 2.5rem;
+        }
+      }
+
+      .plate {
+        margin: 0;
+      }
+
+      .plate-button {
+        display: block;
+        width: 100%;
+        overflow: hidden;
+        border: 0;
+        padding: 0;
+        background: var(--ink-soft);
+        cursor: zoom-in;
+        text-align: left;
+      }
+
+      .plate-button img {
+        width: 100%;
+        aspect-ratio: 1;
+        object-fit: cover;
+        transition: transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .plate-button:hover img,
+      .plate-button:focus-visible img {
+        transform: scale(1.035);
+      }
+
+      .plate figcaption {
+        border-top: 1px solid rgba(8, 36, 92, 0.15);
+        margin-top: 0.8rem;
+        padding-top: 0.9rem;
+      }
+
+      .plate h3 {
+        margin: 0;
+        color: var(--ink);
+        font-family: var(--display);
+        font-size: 1.3rem;
+        font-weight: 500;
+        letter-spacing: -0.02em;
+        line-height: 1.1;
+      }
+
+      .plate p {
+        margin: 0.35rem 0 0;
+        color: rgba(8, 36, 92, 0.7);
+        font-size: 0.875rem;
+        line-height: 1.5;
+      }
+
+      @media (min-width: 1024px) {
+        .plate h3 {
+          font-size: 1.5rem;
+        }
+      }
+
+      .closing {
+        border-top: 1px solid rgba(255, 250, 240, 0.2);
+        background: var(--ink);
+        color: var(--cream);
+      }
+
+      .closing .inner {
+        display: grid;
+        gap: 2.5rem;
+        padding-block: 4rem 1.5rem;
+      }
+
+      @media (min-width: 900px) {
+        .closing .inner {
+          grid-template-columns: 1.2fr 0.8fr;
+          gap: 4rem;
+          padding-block: 5.5rem 1.5rem;
+        }
+      }
+
+      .closing h2 {
+        max-width: 12ch;
+        margin: 0;
+        font-family: var(--display);
+        font-size: clamp(2.5rem, 6vw, 5.4rem);
+        font-weight: 600;
+        letter-spacing: -0.035em;
+        line-height: 0.92;
+        text-wrap: balance;
+      }
+
+      .closing h2 em {
+        color: var(--gold);
+      }
+
+      .closing p {
+        max-width: 40ch;
+        margin: 1.25rem 0 0;
+        color: rgba(255, 250, 240, 0.65);
+        font-size: 1rem;
+        line-height: 1.65;
+      }
+
+      .closing .phone {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-top: 1rem;
+        color: var(--cream);
+        font-family: var(--display);
+        font-size: clamp(1.9rem, 4.5vw, 3rem);
+        font-weight: 500;
+        text-decoration: none;
+        transition: color 200ms ease;
+      }
+
+      .closing .phone:hover {
+        color: var(--gold);
+      }
+
+      .closing .side {
+        border-top: 1px solid rgba(255, 250, 240, 0.2);
+        padding-top: 1.5rem;
+      }
+
+      .closing .side .micro {
+        color: rgba(255, 250, 240, 0.65);
+      }
+
+      .social-list {
+        display: grid;
+        gap: 0.65rem;
+        margin-top: 1rem;
+      }
+
+      .social-list a {
+        display: flex;
+        min-height: 3rem;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        border: 1px solid rgba(255, 250, 240, 0.25);
+        padding: 0.7rem 1rem;
+        color: var(--cream);
+        font-size: 0.875rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: background-color 200ms ease, border-color 200ms ease,
+          color 200ms ease;
+      }
+
+      .social-list a:hover {
+        border-color: var(--gold);
+        background: var(--gold);
+        color: var(--ink);
+      }
+
+      .social-list span {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.65rem;
+      }
+
+      .closing .bottom {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        border-top: 1px solid rgba(255, 250, 240, 0.2);
+        padding-block: 1.25rem 2rem;
+        color: rgba(255, 250, 240, 0.65);
+        font-size: 0.8125rem;
+      }
+
+      @media (min-width: 900px) {
+        .closing .bottom {
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-between;
+        }
+      }
+
+      .closing .bottom a {
+        min-height: 2.75rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        text-decoration: none;
+        transition: color 200ms ease;
+      }
+
+      .closing .bottom a:hover {
+        color: var(--gold);
+      }
+
+      .lightbox {
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+        display: none;
+        flex-direction: column;
+        background: var(--ink);
+        color: var(--cream);
+      }
+
+      .lightbox[open],
+      .lightbox.is-open {
+        display: flex;
+      }
+
+      .lightbox .lightbox-bar {
+        display: flex;
+        flex-shrink: 0;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.75rem 1rem;
+      }
+
+      @media (min-width: 640px) {
+        .lightbox .lightbox-bar {
+          padding-inline: 1.5rem;
+        }
+      }
+
+      .lightbox .count {
+        margin: 0;
+        color: rgba(255, 250, 240, 0.6);
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .lightbox .close {
+        display: inline-flex;
+        width: 2.75rem;
+        height: 2.75rem;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(255, 250, 240, 0.25);
+        background: none;
+        cursor: pointer;
+        transition: background-color 200ms ease, border-color 200ms ease,
+          color 200ms ease;
+      }
+
+      .lightbox .close:hover {
+        border-color: var(--gold);
+        background: var(--gold);
+        color: var(--ink);
+      }
+
+      .lightbox .stage {
+        position: relative;
+        display: flex;
+        min-height: 0;
+        flex: 1;
+        align-items: center;
+        justify-content: center;
+        padding: 0 0.75rem 0.75rem;
+      }
+
+      @media (min-width: 640px) {
+        .lightbox .stage {
+          padding: 0 2rem 1.5rem;
+        }
+      }
+
+      .lightbox .nav {
+        position: absolute;
+        top: 50%;
+        z-index: 2;
+        display: inline-flex;
+        width: 2.75rem;
+        height: 2.75rem;
+        transform: translateY(-50%);
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(255, 250, 240, 0.25);
+        background: rgba(8, 36, 92, 0.72);
+        color: var(--cream);
+        cursor: pointer;
+        transition: border-color 200ms ease, color 200ms ease;
+      }
+
+      #lightbox-prev {
+        left: 0.75rem;
+      }
+
+      #lightbox-next {
+        right: 0.75rem;
+      }
+
+      @media (min-width: 640px) {
+        #lightbox-prev {
+          left: 1.25rem;
+        }
+        #lightbox-next {
+          right: 1.25rem;
+        }
+      }
+
+      .lightbox .nav:hover {
+        border-color: var(--gold);
+        color: var(--gold);
+      }
+
+      .lightbox figure {
+        display: flex;
+        min-height: 0;
+        width: 100%;
+        max-width: 48rem;
+        flex-direction: column;
+        align-items: center;
+        margin: 0;
+      }
+
+      .lightbox img {
+        max-height: 68svh;
+        width: auto;
+        max-width: 84vw;
+        object-fit: contain;
+      }
+
+      @media (min-width: 640px) {
+        .lightbox img {
+          max-width: 100%;
+        }
+      }
+
+      .lightbox figcaption {
+        margin-top: 1rem;
+        text-align: center;
+      }
+
+      .lightbox h2 {
+        margin: 0;
+        font-family: var(--display);
+        font-size: 1.4rem;
+        font-weight: 500;
+      }
+
+      .lightbox figcaption p {
+        margin: 0.3rem 0 0;
+        color: rgba(255, 250, 240, 0.6);
+        font-size: 0.875rem;
+      }
+
+      /* Entry motion, one moment only. */
+      @keyframes rise {
+        from {
+          opacity: 0;
+          transform: translateY(22px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .hero h1,
+      .hero .lede,
+      .hero-actions,
+      .hero .ticket,
+      .hero-photo {
+        animation: rise 850ms cubic-bezier(0.16, 1, 0.3, 1) both;
+      }
+
+      .hero .lede {
+        animation-delay: 90ms;
+      }
+
+      .hero-actions {
+        animation-delay: 160ms;
+      }
+
+      .hero .ticket {
+        animation-delay: 240ms;
+      }
+
+      .hero-photo {
+        animation-delay: 280ms;
+      }
+
+      .still .hero h1,
+      .still .hero .lede,
+      .still .hero-actions,
+      .still .hero .ticket,
+      .still .hero-photo {
+        animation: none !important;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+
+        *,
+        *::before,
+        *::after {
+          animation: none !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <script>
+      if (new URLSearchParams(location.search).has("still")) {
+        document.documentElement.classList.add("still");
+      }
+    </script>
+    <a class="skip-link" href="#catering-food">Skip to the food</a>
+
+    <header class="site-header">
+      <div class="shell bar">
+        <a class="brand" href="#" aria-label="Pho Bay Noodle, back to top">
+          <img src="./logo-160.png" alt="" width="160" height="111" />
+        </a>
+        <a class="back-link" href="./">
+          <span class="long">Back to the stall</span>
+          <span class="short">Back</span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M7 17 17 7M7 7h10v10" />
+          </svg>
+        </a>
+      </div>
+    </header>
+
+    <main>
+      <section class="shell hero">
+        <div class="hero-grid">
+          <div>
+            <h1>Catering <em>food</em></h1>
+            <p class="lede">
+              Pho Bay Noodle is available for Sunday catering events. Call or
+              message to book your catering.
+            </p>
+
+            <div class="hero-actions">
+              <a class="cta" href="tel:0456777999">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z" />
+                </svg>
+                Call 0456 777 999
+              </a>
+              <a class="text-link" href="#catering-food">
+                See the food
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12h14m-6-6 6 6-6 6" />
+                </svg>
+              </a>
+            </div>
+
+            <div class="ticket">
+              <div>
+                <span class="label">Catering bookings</span>
+                <strong>Sundays · Sydney markets</strong>
+              </div>
+              <a href="tel:0456777999">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z" />
+                </svg>
+                Call or message
+              </a>
+            </div>
+          </div>
+
+          <figure class="hero-photo">
+            <div class="frame">
+              <img
+                src="./catering-1400.webp"
+                alt="Fresh bread rolls and a tray of catering food being prepared in the kitchen"
+                width="748"
+                height="843"
+                fetchpriority="high"
+              />
+              <span class="tag">Sundays</span>
+            </div>
+            <figcaption>Sunday catering, prepared by the family.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <div class="band" aria-label="Sunday catering, Sydney markets, family-run">
+        <div class="shell inner">
+          <div class="band-tags">
+            <span>Sunday catering</span>
+            <span>Sydney markets</span>
+            <span>Family-run</span>
+          </div>
+          <span>0456 777 999</span>
+        </div>
+      </div>
+
+      <section class="shell gallery" id="catering-food">
+        <div class="gallery-head">
+          <h2>A look at the table</h2>
+          <p>
+            Fresh platters, noodle salads, spring rolls and rice paper rolls
+            from our Sunday catering spreads.
+          </p>
+        </div>
+
+        <div class="plate-grid">
+          <figure class="plate">
+            <button class="plate-button" type="button" data-index="0" aria-label="View Large Event Catering photo larger">
+              <img src="./catering_menu/image1-1100.webp" srcset="./catering_menu/image1-600.webp 600w, ./catering_menu/image1-1100.webp 1100w" sizes="(min-width: 1024px) 30vw, 50vw" alt="Vietnamese catering food" width="1100" height="1100" loading="eager" decoding="async" />
+            </button>
+            <figcaption>
+              <h3>Large Event Catering</h3>
+              <p>Perfect for birthdays, work functions and family celebrations.</p>
+            </figcaption>
+          </figure>
+
+          <figure class="plate">
+            <button class="plate-button" type="button" data-index="1" aria-label="View Premium Buffet Setup photo larger">
+              <img src="./catering_menu/image2-1100.webp" srcset="./catering_menu/image2-600.webp 600w, ./catering_menu/image2-1100.webp 1100w" sizes="(min-width: 1024px) 30vw, 50vw" alt="Rice paper rolls catering" width="1100" height="1100" loading="eager" decoding="async" />
+            </button>
+            <figcaption>
+              <h3>Premium Buffet Setup</h3>
+              <p>Authentic Vietnamese banquet style catering experience.</p>
+            </figcaption>
+          </figure>
+
+          <figure class="plate">
+            <button class="plate-button" type="button" data-index="2" aria-label="View Event Presentation photo larger">
+              <img src="./catering_menu/image3-1100.webp" srcset="./catering_menu/image3-600.webp 600w, ./catering_menu/image3-1100.webp 1100w" sizes="(min-width: 1024px) 30vw, 50vw" alt="Noodle salad catering" width="1100" height="1100" loading="lazy" decoding="async" />
+            </button>
+            <figcaption>
+              <h3>Event Presentation</h3>
+              <p>Beautifully presented catering tables for all occasions.</p>
+            </figcaption>
+          </figure>
+
+          <figure class="plate">
+            <button class="plate-button" type="button" data-index="3" aria-label="View Fresh &amp; Crispy Mix photo larger">
+              <img src="./catering_menu/image4-1100.webp" srcset="./catering_menu/image4-600.webp 600w, ./catering_menu/image4-1100.webp 1100w" sizes="(min-width: 1024px) 30vw, 50vw" alt="Spring rolls and rice paper rolls" width="1100" height="1100" loading="lazy" decoding="async" />
+            </button>
+            <figcaption>
+              <h3>Fresh &amp; Crispy Mix</h3>
+              <p>Combination platters with spring rolls and rice paper rolls.</p>
+            </figcaption>
+          </figure>
+
+          <figure class="plate">
+            <button class="plate-button" type="button" data-index="4" aria-label="View Noodle Salad Bowls photo larger">
+              <img src="./catering_menu/image5-1100.webp" srcset="./catering_menu/image5-600.webp 600w, ./catering_menu/image5-1100.webp 1100w" sizes="(min-width: 1024px) 30vw, 50vw" alt="Vietnamese prawn salad" width="1100" height="1100" loading="lazy" decoding="async" />
+            </button>
+            <figcaption>
+              <h3>Noodle Salad Bowls</h3>
+              <p>Market favourites perfect for parties and catering platters.</p>
+            </figcaption>
+          </figure>
+
+          <figure class="plate">
+            <button class="plate-button" type="button" data-index="5" aria-label="View Authentic Vietnamese Flavours photo larger">
+              <img src="./catering_menu/image6-1100.webp" srcset="./catering_menu/image6-600.webp 600w, ./catering_menu/image6-1100.webp 1100w" sizes="(min-width: 1024px) 30vw, 50vw" alt="Vietnamese buffet catering" width="1100" height="1100" loading="lazy" decoding="async" />
+            </button>
+            <figcaption>
+              <h3>Authentic Vietnamese Flavours</h3>
+              <p>Family recipes cooked fresh for every catering booking.</p>
+            </figcaption>
+          </figure>
+
+          <figure class="plate">
+            <button class="plate-button" type="button" data-index="6" aria-label="View Prawn Salad Catering photo larger">
+              <img src="./catering_menu/image7-1100.webp" srcset="./catering_menu/image7-600.webp 600w, ./catering_menu/image7-1100.webp 1100w" sizes="(min-width: 1024px) 30vw, 50vw" alt="Vietnamese buffet spread" width="1100" height="1100" loading="lazy" decoding="async" />
+            </button>
+            <figcaption>
+              <h3>Prawn Salad Catering</h3>
+              <p>Fresh herbs, vermicelli noodles and premium seafood options.</p>
+            </figcaption>
+          </figure>
+
+          <figure class="plate">
+            <button class="plate-button" type="button" data-index="7" aria-label="View Fresh Vietnamese Salads photo larger">
+              <img src="./catering_menu/image8-1100.webp" srcset="./catering_menu/image8-600.webp 600w, ./catering_menu/image8-1100.webp 1100w" sizes="(min-width: 1024px) 30vw, 50vw" alt="Vietnamese catering event setup" width="1100" height="1100" loading="lazy" decoding="async" />
+            </button>
+            <figcaption>
+              <h3>Fresh Vietnamese Salads</h3>
+              <p>Traditional Vietnamese flavours prepared fresh for events and gatherings.</p>
+            </figcaption>
+          </figure>
+
+          <figure class="plate">
+            <button class="plate-button" type="button" data-index="8" aria-label="View Rice Paper Rolls photo larger">
+              <img src="./catering_menu/image9-1100.webp" srcset="./catering_menu/image9-600.webp 600w, ./catering_menu/image9-1100.webp 1100w" sizes="(min-width: 1024px) 30vw, 50vw" alt="Vietnamese catering bowls" width="1100" height="1100" loading="lazy" decoding="async" />
+            </button>
+            <figcaption>
+              <h3>Rice Paper Rolls</h3>
+              <p>Fresh handmade rolls with signature Pho Bay dipping sauces.</p>
+            </figcaption>
+          </figure>
+
+          <figure class="plate">
+            <button class="plate-button" type="button" data-index="9" aria-label="View Fresh Market Bowls photo larger">
+              <img src="./catering_menu/image10-1100.webp" srcset="./catering_menu/image10-600.webp 600w, ./catering_menu/image10-1100.webp 1100w" sizes="(min-width: 1024px) 30vw, 50vw" alt="Vietnamese finger food catering" width="1100" height="1100" loading="lazy" decoding="async" />
+            </button>
+            <figcaption>
+              <h3>Fresh Market Bowls</h3>
+              <p>Customisable bowls with fresh herbs, meats and crunchy toppings.</p>
+            </figcaption>
+          </figure>
+
+          <figure class="plate">
+            <button class="plate-button" type="button" data-index="10" aria-label="View Finger Food Catering photo larger">
+              <img src="./catering_menu/image11-1100.webp" srcset="./catering_menu/image11-600.webp 600w, ./catering_menu/image11-1100.webp 1100w" sizes="(min-width: 1024px) 30vw, 50vw" alt="Vietnamese seafood catering" width="1100" height="1100" loading="lazy" decoding="async" />
+            </button>
+            <figcaption>
+              <h3>Finger Food Catering</h3>
+              <p>Small bites and shared plates ideal for events and parties.</p>
+            </figcaption>
+          </figure>
+
+          <figure class="plate">
+            <button class="plate-button" type="button" data-index="11" aria-label="View Seafood Catering Options photo larger">
+              <img src="./catering_menu/image12-1100.webp" srcset="./catering_menu/image12-600.webp 600w, ./catering_menu/image12-1100.webp 1100w" sizes="(min-width: 1024px) 30vw, 50vw" alt="Close up Vietnamese catering food" width="1100" height="1100" loading="lazy" decoding="async" />
+            </button>
+            <figcaption>
+              <h3>Seafood Catering Options</h3>
+              <p>Fresh prawns and Vietnamese seafood dishes available.</p>
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+    </main>
+
+    <footer class="closing on-dark">
+      <div class="shell inner">
+        <div>
+          <h2>Book <em>Sunday catering.</em></h2>
+          <p>
+            Call or message for Sunday catering bookings.
+          </p>
+          <a class="phone" href="tel:0456777999">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z" />
+            </svg>
+            0456 777 999
+          </a>
+        </div>
+
+        <div class="side">
+          <p class="micro">Message the stall</p>
+          <div class="social-list">
+            <a href="https://www.instagram.com/phobaynoodle/" target="_blank" rel="noopener noreferrer">
+              <span>
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="3" y="3" width="18" height="18" rx="5" />
+                  <circle cx="12" cy="12" r="4" />
+                  <circle cx="17.4" cy="6.6" r="1" fill="currentColor" stroke="none" />
+                </svg>
+                Instagram
+              </span>
+              <span aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M7 7h10v10" /></svg>
+              </span>
+            </a>
+            <a href="https://www.facebook.com/phobaynoodle/" target="_blank" rel="noopener noreferrer">
+              <span>
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M15.5 21v-7h2.4l.4-3h-2.8V9.1c0-.9.3-1.6 1.8-1.6H18V4.8c-.4 0-1.3-.1-2.4-.1-2.4 0-4 1.5-4 4.1V11H9.2v3h2.4v7" />
+                </svg>
+                Facebook
+              </span>
+              <span aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M7 7h10v10" /></svg>
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="shell bottom">
+        <p>© <span id="year"></span> Pho Bay Noodle</p>
+        <p>Fresh Vietnamese food at Sydney markets.</p>
+        <a href="./">
+          Back to the stall
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M7 17 17 7M7 7h10v10" />
+          </svg>
+        </a>
+      </div>
+    </footer>
+
+    <div class="lightbox on-dark" id="lightbox" role="dialog" aria-modal="true" aria-labelledby="lightbox-title" aria-describedby="lightbox-caption">
+      <div class="lightbox-bar">
+        <p class="count" id="lightbox-count">1 / 12</p>
+        <button class="close" type="button" id="lightbox-close" aria-label="Close photo">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true">
+            <path d="M18 6 6 18M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      <div class="stage">
+        <button class="nav" type="button" id="lightbox-prev" aria-label="Previous photo">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="m15 18-6-6 6-6" />
+          </svg>
+        </button>
+        <figure>
+          <img id="lightbox-image" src="./catering_menu/image1-1100.webp" alt="Large Event Catering" />
+          <figcaption aria-live="polite">
+            <h2 id="lightbox-title"></h2>
+            <p id="lightbox-caption"></p>
+          </figcaption>
+        </figure>
+        <button class="nav" type="button" id="lightbox-next" aria-label="Next photo">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="m9 18 6-6-6-6" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      const siteHeader = document.querySelector(".site-header");
+      if (siteHeader) {
+        let frame = 0;
+        let last = null;
+
+        const updateHeader = () => {
+          frame = 0;
+          const next = window.scrollY > 32;
+          if (next !== last) {
+            last = next;
+            siteHeader.classList.toggle("is-scrolled", next);
+          }
+        };
+
+        const onHeaderScroll = () => {
+          if (!frame) frame = window.requestAnimationFrame(updateHeader);
+        };
+
+        updateHeader();
+        window.addEventListener("scroll", onHeaderScroll, { passive: true });
+      }
+
+      if (document.documentElement.classList.contains("still")) {
+        document.querySelectorAll('img[loading="lazy"]').forEach((img) => {
+          img.loading = "eager";
+        });
+      }
+
+      const plates = Array.from(document.querySelectorAll(".plate"));
+      const dialog = document.getElementById("lightbox");
+      const closeButton = document.getElementById("lightbox-close");
+      const prevButton = document.getElementById("lightbox-prev");
+      const nextButton = document.getElementById("lightbox-next");
+      const image = document.getElementById("lightbox-image");
+      const title = document.getElementById("lightbox-title");
+      const caption = document.getElementById("lightbox-caption");
+      const count = document.getElementById("lightbox-count");
+
+      let index = 0;
+      let lastFocus = null;
+
+      const data = plates.map((plate) => {
+        const img = plate.querySelector("img");
+        return {
+          src: img.getAttribute("src"),
+          alt: img.alt,
+          title: plate.querySelector("h3").textContent,
+          caption: plate.querySelector("figcaption p").textContent,
+        };
+      });
+
+      function render(nextIndex) {
+        index = (nextIndex + data.length) % data.length;
+        const item = data[index];
+        image.src = item.src;
+        image.alt = item.alt;
+        title.textContent = item.title;
+        caption.textContent = item.caption;
+        count.textContent = `${index + 1} / ${data.length}`;
+      }
+
+      function open(nextIndex) {
+        lastFocus = document.activeElement;
+        render(nextIndex);
+        dialog.classList.add("is-open");
+        document.body.style.overflow = "hidden";
+        closeButton.focus();
+      }
+
+      function close() {
+        dialog.classList.remove("is-open");
+        document.body.style.overflow = "";
+        if (lastFocus instanceof HTMLElement) lastFocus.focus();
+      }
+
+      plates.forEach((plate, plateIndex) => {
+        plate.querySelector(".plate-button").addEventListener("click", () => open(plateIndex));
+      });
+
+      closeButton.addEventListener("click", close);
+      prevButton.addEventListener("click", () => render(index - 1));
+      nextButton.addEventListener("click", () => render(index + 1));
+
+      dialog.addEventListener("click", (event) => {
+        if (event.target === dialog) close();
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (!dialog.classList.contains("is-open")) return;
+        if (event.key === "Escape") {
+          event.preventDefault();
+          close();
+        }
+        if (event.key === "ArrowLeft") {
+          event.preventDefault();
+          render(index - 1);
+        }
+        if (event.key === "ArrowRight") {
+          event.preventDefault();
+          render(index + 1);
+        }
+        if (event.key === "Tab") {
+          const focusables = Array.from(dialog.querySelectorAll("button"));
+          const first = focusables[0];
+          const last = focusables[focusables.length - 1];
+          if (event.shiftKey && document.activeElement === first) {
+            event.preventDefault();
+            last.focus();
+          } else if (!event.shiftKey && document.activeElement === last) {
+            event.preventDefault();
+            first.focus();
+          }
+        }
+      });
+    </script>
+  </body>
 </html>

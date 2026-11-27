@@ -1,16 +1,463 @@
 @import "tailwindcss";
 
-html {
-  scroll-behavior: smooth;
+/* ------------------------------------------------------------------ *
+ *  Typefaces: self-hosted variable fonts (no third-party requests)
+ * ------------------------------------------------------------------ */
+@font-face {
+  font-family: "Fraunces";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/fraunces-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191,
+    U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Fraunces";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/fraunces-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7,
+    U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F,
+    U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F,
+    U+A720-A7FF;
+}
+@font-face {
+  font-family: "Fraunces";
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/fraunces-italic-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
+    U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
+    U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Fraunces";
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/fraunces-italic-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7,
+    U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F,
+    U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F,
+    U+A720-A7FF;
+}
+@font-face {
+  font-family: "Instrument Sans";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("/fonts/instrument-sans-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
+    U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
+    U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Instrument Sans";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("/fonts/instrument-sans-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7,
+    U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F,
+    U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F,
+    U+A720-A7FF;
 }
 
-@keyframes zoomIn {
-  0% {
-    transform: scale(0.9);
+/* ------------------------------------------------------------------ *
+ *  Design tokens
+ * ------------------------------------------------------------------ */
+@theme {
+  --color-paper: #f8efda;
+  --color-paper-deep: #f0e2c4;
+  --color-cream: #fffaf0;
+  --color-ink: #08245c;
+  --color-ink-soft: #123a70;
+  --color-blue: #245aa6;
+  --color-red: #c93424;
+  --color-red-deep: #a32619;
+  --color-gold: #f6b70b;
+  --color-gold-soft: #f8d570;
+  --color-body: #333e50;
+
+  --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --font-sans: "Instrument Sans", ui-sans-serif, system-ui, -apple-system,
+    sans-serif;
+
+  --radius-ticket: 2px;
+  --shadow-lift: 0 22px 48px -24px rgba(8, 36, 92, 0.45);
+}
+
+/* ------------------------------------------------------------------ *
+ *  Base
+ * ------------------------------------------------------------------ */
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-body);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* A fine paper grain over the whole page. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.032;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+::selection {
+  background: var(--color-gold);
+  color: var(--color-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 3px;
+}
+
+.on-dark :focus-visible,
+.on-dark:focus-visible {
+  outline-color: var(--color-gold);
+}
+
+section[id],
+footer[id] {
+  scroll-margin-top: 92px;
+}
+
+img {
+  max-width: 100%;
+}
+
+/* Theme the browser surfaces that usually get left behind. */
+* {
+  scrollbar-color: var(--color-gold) rgba(8, 36, 92, 0.06);
+  scrollbar-width: thin;
+}
+
+/* ------------------------------------------------------------------ *
+ *  Shared patterns
+ * ------------------------------------------------------------------ */
+.font-display {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  letter-spacing: -0.025em;
+}
+
+.display-inline {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.micro {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.cta {
+  display: inline-flex;
+  min-height: 3.25rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  border: 1px solid var(--color-ink);
+  border-radius: var(--radius-ticket);
+  background: var(--color-ink);
+  padding: 0.9rem 1.4rem;
+  color: var(--color-cream);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  line-height: 1;
+  text-transform: uppercase;
+  transition: background-color 260ms ease, color 260ms ease,
+    border-color 260ms ease, transform 260ms ease;
+}
+
+.cta:hover {
+  border-color: var(--color-gold);
+  background: var(--color-gold);
+  color: var(--color-ink);
+  transform: translateY(-2px);
+}
+
+.cta svg {
+  transition: transform 260ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cta:hover svg {
+  transform: translate(2px, -2px);
+}
+
+.cta-light {
+  border-color: var(--color-cream);
+  background: var(--color-cream);
+  color: var(--color-ink);
+}
+
+.cta-light:hover {
+  border-color: var(--color-gold);
+  background: var(--color-gold);
+  color: var(--color-ink);
+}
+
+.link-arrow {
+  display: inline-flex;
+  min-height: 3.25rem;
+  align-items: center;
+  gap: 0.6rem;
+  border-bottom: 1px solid rgba(8, 36, 92, 0.3);
+  padding: 0.55rem 0;
+  color: var(--color-ink);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  line-height: 1;
+  text-transform: uppercase;
+  transition: border-color 220ms ease, gap 220ms ease;
+}
+
+.link-arrow:hover {
+  gap: 0.85rem;
+  border-color: var(--color-ink);
+}
+
+.link-arrow svg {
+  transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.link-arrow:hover svg {
+  transform: translate(2px, -2px);
+}
+
+.on-dark .link-arrow {
+  border-color: rgba(255, 250, 240, 0.35);
+  color: var(--color-cream);
+}
+
+.on-dark .link-arrow:hover {
+  border-color: var(--color-gold);
+}
+
+.nav-link {
+  position: relative;
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  padding: 0.25rem 0;
+  color: rgba(8, 36, 92, 0.78);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: color 220ms ease;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0.35rem;
+  left: 0;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform 280ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-link:hover {
+  color: var(--color-red);
+}
+
+.nav-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left center;
+}
+
+.rule {
+  height: 1px;
+  background: rgba(8, 36, 92, 0.16);
+}
+
+.rule-light {
+  height: 1px;
+  background: rgba(255, 250, 240, 0.18);
+}
+
+
+/* Sticky header shrink: one height change, shared by the logo and controls. */
+.header-bar {
+  transition: height 320ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.header-logo {
+  transition: height 320ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.header-chip {
+  transition: height 320ms cubic-bezier(0.16, 1, 0.3, 1),
+    padding 320ms cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 220ms ease, color 220ms ease;
+}
+
+.header-menu {
+  transition: height 320ms cubic-bezier(0.16, 1, 0.3, 1),
+    width 320ms cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 220ms ease, color 220ms ease;
+}
+
+/* ------------------------------------------------------------------ *
+ *  Hero entrance: the page's one authored motion moment.
+ * ------------------------------------------------------------------ */
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes curtain-up {
+  from {
+    clip-path: inset(12% 0 88% 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes fade-in {
+  from {
     opacity: 0;
   }
-  100% {
-    transform: scale(1);
+  to {
     opacity: 1;
   }
+}
+
+.hero-rise {
+  animation: rise-in 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.hero-curtain {
+  animation: curtain-up 1100ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.hero-fade {
+  animation: fade-in 1200ms ease both;
+}
+
+.hero-delay-1 {
+  animation-delay: 90ms;
+}
+.hero-delay-2 {
+  animation-delay: 180ms;
+}
+.hero-delay-3 {
+  animation-delay: 280ms;
+}
+.hero-delay-4 {
+  animation-delay: 400ms;
+}
+
+/* ------------------------------------------------------------------ *
+ *  Menu ticker
+ * ------------------------------------------------------------------ */
+@keyframes ticker {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.ticker-track {
+  display: flex;
+  width: max-content;
+  animation: ticker 42s linear infinite;
+}
+
+.ticker {
+  position: relative;
+}
+
+.ticker:hover .ticker-track {
+  animation-play-state: paused;
+}
+
+.ticker::before,
+.ticker::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+  width: 1.5rem;
+  pointer-events: none;
+}
+
+.ticker::before {
+  left: 0;
+  background: linear-gradient(to right, var(--color-ink), transparent);
+}
+
+.ticker::after {
+  right: 0;
+  background: linear-gradient(to left, var(--color-ink), transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .hero-rise,
+  .hero-curtain,
+  .hero-fade,
+  .ticker-track {
+    animation: none !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+/* Visual-review mode: `?still` disables entrance motion so full-page
+   captures show the finished state. */
+.still .hero-rise,
+.still .hero-curtain,
+.still .hero-fade,
+.still .ticker-track {
+  animation: none !important;
 }
