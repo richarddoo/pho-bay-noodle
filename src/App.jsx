@@ -695,14 +695,9 @@ function Schedule({ today }) {
   return (
     <section id="find" className="border-b border-ink/15 bg-paper">
       <div className="mx-auto w-full max-w-[1440px] px-4 py-16 sm:px-8 sm:py-20 lg:px-12 lg:py-28">
-        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <h2 className="max-w-[13ch] text-balance font-display text-[clamp(2.4rem,4.8vw,4.15rem)] font-semibold leading-[0.95] tracking-[-0.03em] text-ink">
-            Find us this week
-          </h2>
-          <p className="max-w-[34ch] text-pretty text-base leading-relaxed text-ink/65 md:pb-2 md:text-right">
-            Every week is the same, so you always know where to find us.
-          </p>
-        </div>
+        <h2 className="max-w-[13ch] text-balance font-display text-[clamp(2.4rem,4.8vw,4.15rem)] font-semibold leading-[0.95] tracking-[-0.03em] text-ink">
+          Find us this week
+        </h2>
 
         <div className="mt-10 border-t border-ink/25 sm:mt-12">
           <div
