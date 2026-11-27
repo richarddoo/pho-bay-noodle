@@ -124,19 +124,6 @@ function Star({ className = "" }) {
   );
 }
 
-function Wordmark() {
-  return (
-    <span className="flex flex-col justify-center">
-      <span className="font-display text-[1.3rem] font-semibold italic leading-[0.95] tracking-[-0.03em] text-ink min-[400px]:text-[1.45rem] sm:text-[1.65rem]">
-        Pho Bay Noodle
-      </span>
-      <span className="mt-1 text-[11px] font-semibold uppercase leading-none tracking-[0.16em] text-ink/70">
-        Sydney markets
-      </span>
-    </span>
-  );
-}
-
 function InstagramIcon({ size = 18, className = "" }) {
   return (
     <svg
@@ -318,9 +305,16 @@ function Header({ today, nextMarket, menuOpen, onOpenMenu }) {
       <div className="mx-auto flex h-16 w-full max-w-[1440px] items-center justify-between gap-2 px-4 sm:h-20 sm:gap-3 sm:px-8 lg:px-12">
         <a
           href="#home"
-          className="shrink-0 transition-opacity hover:opacity-80"
+          aria-label="Pho Bay Noodle — back to top"
+          className="flex shrink-0 items-center transition-opacity hover:opacity-80"
         >
-          <Wordmark />
+          <img
+            src={asset("logo-160.png")}
+            alt=""
+            width="160"
+            height="111"
+            className="h-12 w-auto object-contain sm:h-14"
+          />
         </a>
 
         <nav
@@ -383,8 +377,19 @@ function MobileMenu({ open, onClose, today, nextMarket }) {
       className="fixed inset-0 z-[80] flex flex-col bg-paper outline-none lg:hidden"
     >
       <div className="flex h-16 shrink-0 items-center justify-between border-b border-ink/15 px-4">
-        <a href="#home" onClick={onClose}>
-          <Wordmark />
+        <a
+          href="#home"
+          onClick={onClose}
+          aria-label="Pho Bay Noodle — back to top"
+          className="flex items-center"
+        >
+          <img
+            src={asset("logo-160.png")}
+            alt=""
+            width="160"
+            height="111"
+            className="h-12 w-auto object-contain"
+          />
         </a>
         <button
           type="button"
@@ -785,12 +790,11 @@ function MenuSection({ onOpenImage }) {
           })}
         </div>
 
-        <div className="mt-12 flex flex-col gap-3 border-t border-cream/20 pt-5 text-sm text-cream/55 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-8 text-sm text-cream/55">
           <p className="flex items-center gap-2">
             <Utensils size={15} strokeWidth={1.75} className="text-gold" />
             Order fresh at the stall.
           </p>
-          <p>Select any photo for a closer look.</p>
         </div>
       </div>
     </section>

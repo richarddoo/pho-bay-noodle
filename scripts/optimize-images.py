@@ -36,18 +36,21 @@ def main() -> None:
                 resized.thumbnail((width, width * 4), Image.LANCZOS)
                 save_webp(resized, PUBLIC / f"{stem}-{width}.webp")
 
-    # Logo: keep transparency, shrink for the story stamp + favicons.
+    # Logo: keep transparency, shrink for the header, story stamp and favicons.
     with Image.open(PUBLIC / "logo-v6.png") as raw:
-        logo = raw.convert("RGBA")
-        logo.thumbnail((384, 384), Image.LANCZOS)
-        logo.save(PUBLIC / "logo-384.png", optimize=True)
-        print(f"public/logo-384.png  {(PUBLIC / 'logo-384.png').stat().st_size // 1024} KB")
+        source = raw.convert("RGBA")
 
-        favicon = logo.copy()
+        for width, name in ((160, "logo-160.png"), (384, "logo-384.png")):
+            logo = source.copy()
+            logo.thumbnail((width, width), Image.LANCZOS)
+            logo.save(PUBLIC / name, optimize=True)
+            print(f"public/{name}  {(PUBLIC / name).stat().st_size // 1024} KB")
+
+        favicon = source.copy()
         favicon.thumbnail((64, 64), Image.LANCZOS)
         favicon.save(PUBLIC / "favicon-64.png", optimize=True)
 
-        touch = logo.copy()
+        touch = source.copy()
         touch.thumbnail((180, 180), Image.LANCZOS)
         touch.save(PUBLIC / "apple-touch-icon.png", optimize=True)
 
