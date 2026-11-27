@@ -306,6 +306,28 @@ img {
   background: rgba(255, 250, 240, 0.18);
 }
 
+
+/* Sticky header shrink: one height change, shared by the logo and controls. */
+.header-bar {
+  transition: height 320ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.header-logo {
+  transition: height 320ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.header-chip {
+  transition: height 320ms cubic-bezier(0.16, 1, 0.3, 1),
+    padding 320ms cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 220ms ease, color 220ms ease;
+}
+
+.header-menu {
+  transition: height 320ms cubic-bezier(0.16, 1, 0.3, 1),
+    width 320ms cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 220ms ease, color 220ms ease;
+}
+
 /* ------------------------------------------------------------------ *
  *  Hero entrance — the page's one authored motion moment.
  * ------------------------------------------------------------------ */

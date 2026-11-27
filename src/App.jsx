@@ -301,6 +301,33 @@ function useFocusTrap(ref, active, onClose) {
 }
 
 function Header({ today, nextMarket, menuOpen, onOpenMenu }) {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    let frame = 0;
+    let last = false;
+
+    const update = () => {
+      frame = 0;
+      const next = window.scrollY > 32;
+      if (next !== last) {
+        last = next;
+        setScrolled(next);
+      }
+    };
+
+    const onScroll = () => {
+      if (!frame) frame = window.requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
+  }, []);
+
   const todayLabel = today
     ? `Today · ${today.suburb}`
     : nextMarket
@@ -309,7 +336,11 @@ function Header({ today, nextMarket, menuOpen, onOpenMenu }) {
 
   return (
     <header className="sticky top-0 z-50 border-b border-ink/15 bg-paper/90 backdrop-blur-md">
-      <div className="mx-auto flex h-16 w-full max-w-[1440px] items-center justify-between gap-2 px-4 sm:h-20 sm:gap-3 sm:px-8 lg:px-12">
+      <div
+        className={`header-bar mx-auto flex w-full max-w-[1440px] items-center justify-between gap-2 px-4 sm:gap-3 sm:px-8 lg:px-12 ${
+          scrolled ? "h-16 sm:h-20" : "h-20 sm:h-24"
+        }`}
+      >
         <a
           href="#home"
           aria-label="Pho Bay Noodle — back to top"
@@ -320,7 +351,9 @@ function Header({ today, nextMarket, menuOpen, onOpenMenu }) {
             alt=""
             width="160"
             height="111"
-            className="h-12 w-auto object-contain sm:h-14"
+            className={`header-logo w-auto object-contain ${
+              scrolled ? "h-12 sm:h-14" : "h-14 sm:h-[4.5rem]"
+            }`}
           />
         </a>
 
@@ -338,7 +371,9 @@ function Header({ today, nextMarket, menuOpen, onOpenMenu }) {
         <div className="flex items-center gap-2">
           <a
             href="#today"
-            className="group inline-flex min-h-11 items-center gap-2 whitespace-nowrap rounded-[2px] border border-ink/25 bg-gold px-3 py-2 text-[11px] font-semibold uppercase leading-none tracking-[0.12em] text-ink transition-colors hover:bg-ink hover:text-cream sm:px-4"
+            className={`header-chip group inline-flex items-center gap-2 whitespace-nowrap rounded-[2px] border border-ink/25 bg-gold py-0 text-[11px] font-semibold uppercase leading-none tracking-[0.12em] text-ink hover:bg-ink hover:text-cream ${
+              scrolled ? "h-11 px-3 sm:px-4" : "h-12 px-4 sm:px-5"
+            }`}
           >
             <span className="h-2 w-2 shrink-0 rounded-full bg-red transition-colors group-hover:bg-gold" />
             <span className="hidden sm:inline">{todayLabel}</span>
@@ -356,9 +391,17 @@ function Header({ today, nextMarket, menuOpen, onOpenMenu }) {
             aria-label="Open menu"
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
-            className="inline-flex h-11 w-11 items-center justify-center rounded-[2px] border border-ink/20 text-ink transition-colors hover:bg-ink hover:text-cream lg:hidden"
+            className={`header-menu inline-flex items-center justify-center rounded-[2px] border border-ink/20 text-ink hover:bg-ink hover:text-cream lg:hidden ${
+              scrolled ? "h-11 w-11" : "h-12 w-12"
+            }`}
           >
-            <Menu size={20} strokeWidth={1.75} />
+            <Menu
+              size={20}
+              strokeWidth={1.75}
+              className={`transition-transform duration-300 ${
+                scrolled ? "" : "scale-110"
+              }`}
+            />
           </button>
         </div>
       </div>
