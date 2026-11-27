@@ -176,7 +176,7 @@ function OpenStamp() {
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none absolute bottom-5 left-4 hidden h-[7.25rem] w-[7.25rem] -rotate-[9deg] drop-shadow-[0_10px_18px_rgba(8,36,92,0.22)] sm:block"
+      className="pointer-events-none absolute bottom-4 left-4 h-24 w-24 -rotate-[9deg] drop-shadow-[0_10px_18px_rgba(8,36,92,0.22)] sm:bottom-5 sm:h-[7.25rem] sm:w-[7.25rem]"
     >
       <svg viewBox="0 0 120 120" className="h-full w-full">
         <circle
