@@ -140,8 +140,12 @@ footer[id] {
   scroll-margin-top: 92px;
 }
 
-img {
-  max-width: 100%;
+#main {
+  scroll-margin-top: 7rem;
+}
+
+button:not(:disabled) {
+  cursor: pointer;
 }
 
 /* Theme the browser surfaces that usually get left behind. */
@@ -304,6 +308,10 @@ img {
 .rule-light {
   height: 1px;
   background: rgba(255, 250, 240, 0.18);
+}
+
+.lightbox-image {
+  max-height: min(68svh, calc(100svh - 10.5rem));
 }
 
 
