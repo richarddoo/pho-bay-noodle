@@ -40,7 +40,7 @@ def main() -> None:
     with Image.open(PUBLIC / "logo-v6.png") as raw:
         source = raw.convert("RGBA")
 
-        for width, name in ((160, "logo-160.png"), (384, "logo-384.png")):
+        for width, name in ((160, "logo-160.png"),):
             logo = source.copy()
             logo.thumbnail((width, width), Image.LANCZOS)
             logo.save(PUBLIC / name, optimize=True)

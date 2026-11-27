@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowUpRight,
+  Award,
   ArrowRight,
   CalendarDays,
   ChevronLeft,
@@ -93,7 +94,7 @@ const navLinks = [
 ];
 const restaurantGuruBadge = `
 <link href="https://awards.infcdn.net/2026/circle_v2.css" rel="stylesheet"/>
-<div id="circle-r-ribbon" onclick="if(event.target.nodeName.toLowerCase() != 'a') {window.open(this.querySelector('.r-ribbon_title').href);return 0;}" style="cursor:pointer;overflow:hidden;position:relative;display:flex;flex-direction:column;padding:0;max-width:174px;min-width:174px;height:135px;font:400 10px/normal 'Akrobat Bold','Helvetica Neue','Arial',sans-serif;align-items:center;text-align:center;color:#000!important;text-shadow:none;background:url(https://awards.infcdn.net/img/bg.svg) no-repeat;box-sizing:border-box;">
+<div id="circle-r-ribbon" onclick="if(event.target.nodeName.toLowerCase() != 'a') {window.open(this.querySelector('.r-ribbon_title').href);return 0;}" style="cursor:pointer;overflow:hidden;position:relative;display:flex;flex-direction:column;padding:0;max-width:174px;min-width:174px;height:135px;font:400 10px/normal 'Akrobat Bold','Helvetica Neue','Arial',sans-serif;align-items:center;text-align:center;color:#000!important;text-shadow:none;background:url(${asset("restaurant-guru-2026.svg")}) no-repeat;box-sizing:border-box;">
   <p style="color:#000;width:140px;font:22px 'Akrobat Black',sans-serif;font-style:italic;transform:rotate(-12deg);position:absolute;top:41px;left:12px;text-align:center;margin:0;">2026</p>
   <a href="https://restaurantguru.com/Pho-Bay-noodle-Hornsby" class="r-ribbon_title" target="_blank" style="text-transform:uppercase;color:#fff!important;width:140px;font-size:16px;font-family:'Akrobat Bold',sans-serif;font-style:italic;transform:rotate(-12deg);position:absolute;z-index:5;top:72px;left:12px;text-align:center;text-decoration:none;">Pho Bay Noodle</a>
 </div>
@@ -928,19 +929,32 @@ function StorySection() {
   return (
     <section id="about" className="bg-paper">
       <div className="mx-auto grid w-full max-w-[1440px] gap-12 px-4 py-16 sm:px-8 sm:py-20 lg:grid-cols-12 lg:gap-16 lg:px-12 lg:py-28">
-        <div className="order-2 flex flex-col items-start lg:order-1 lg:col-span-4 lg:pt-2">
-          <img
-            src={asset("logo-384.png")}
-            alt="Pho Bay Noodle logo"
-            width="384"
-            height="267"
-            loading={STILL ? "eager" : "lazy"}
-            className="w-40 -rotate-[6deg] drop-shadow-[0_18px_26px_rgba(8,36,92,0.16)] sm:w-48"
-          />
-          <div className="mt-8 flex justify-center lg:justify-start">
+        <div className="order-2 flex flex-col items-center lg:order-1 lg:col-span-4 lg:justify-center">
+          <div className="flex justify-center">
             <div dangerouslySetInnerHTML={{ __html: restaurantGuruBadge }} />
             <span className="sr-only">2026 Restaurant Guru award</span>
           </div>
+          <a
+            href="https://restaurantguru.com/Pho-Bay-noodle-Hornsby"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group mt-6 inline-flex items-center gap-3 border-y border-ink/20 py-3.5 text-ink transition-colors hover:text-red"
+          >
+            <Award size={22} strokeWidth={1.5} className="text-red" />
+            <span>
+              <span className="block text-sm font-semibold leading-tight">
+                2026 Restaurant Guru award
+              </span>
+              <span className="mt-0.5 block text-xs text-ink/70">
+                Read the review
+              </span>
+            </span>
+            <ArrowUpRight
+              size={16}
+              strokeWidth={2}
+              className="ml-1 shrink-0 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+            />
+          </a>
         </div>
 
         <div className="order-1 lg:order-2 lg:col-span-7 lg:col-start-6">
