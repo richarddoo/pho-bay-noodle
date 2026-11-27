@@ -929,32 +929,36 @@ function StorySection() {
   return (
     <section id="about" className="bg-paper">
       <div className="mx-auto grid w-full max-w-[1440px] gap-12 px-4 py-16 sm:px-8 sm:py-20 lg:grid-cols-12 lg:gap-16 lg:px-12 lg:py-28">
-        <div className="order-2 flex flex-col items-center lg:order-1 lg:col-span-4 lg:justify-center">
-          <div className="flex justify-center">
-            <div dangerouslySetInnerHTML={{ __html: restaurantGuruBadge }} />
-            <span className="sr-only">2026 Restaurant Guru award</span>
+        <div className="order-2 flex flex-col items-start lg:order-1 lg:col-span-4 lg:justify-center">
+          <div className="w-full max-w-[17.5rem]">
+            <div className="flex justify-center">
+              <div dangerouslySetInnerHTML={{ __html: restaurantGuruBadge }} />
+              <span className="sr-only">2026 Restaurant Guru award</span>
+            </div>
+            <a
+              href="https://restaurantguru.com/Pho-Bay-noodle-Hornsby"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group mt-6 flex w-full items-center justify-between gap-3 border-y border-ink/20 py-3.5 text-ink transition-colors hover:text-red"
+            >
+              <span className="inline-flex items-center gap-3">
+                <Award size={22} strokeWidth={1.5} className="shrink-0 text-red" />
+                <span>
+                  <span className="block text-sm font-semibold leading-tight">
+                    2026 Restaurant Guru award
+                  </span>
+                  <span className="mt-0.5 block text-xs text-ink/70">
+                    Read the review
+                  </span>
+                </span>
+              </span>
+              <ArrowUpRight
+                size={16}
+                strokeWidth={2}
+                className="shrink-0 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+              />
+            </a>
           </div>
-          <a
-            href="https://restaurantguru.com/Pho-Bay-noodle-Hornsby"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group mt-6 inline-flex items-center gap-3 border-y border-ink/20 py-3.5 text-ink transition-colors hover:text-red"
-          >
-            <Award size={22} strokeWidth={1.5} className="text-red" />
-            <span>
-              <span className="block text-sm font-semibold leading-tight">
-                2026 Restaurant Guru award
-              </span>
-              <span className="mt-0.5 block text-xs text-ink/70">
-                Read the review
-              </span>
-            </span>
-            <ArrowUpRight
-              size={16}
-              strokeWidth={2}
-              className="ml-1 shrink-0 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-            />
-          </a>
         </div>
 
         <div className="order-1 lg:order-2 lg:col-span-7 lg:col-start-6">
