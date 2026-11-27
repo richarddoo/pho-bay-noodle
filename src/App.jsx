@@ -94,30 +94,52 @@ const navLinks = [
 ];
 const restaurantGuruBadge = `
 <link href="https://awards.infcdn.net/2026/circle_v2.css" rel="stylesheet"/>
-<div id="circle-r-ribbon" onclick="if(event.target.nodeName.toLowerCase() != 'a') {window.open(this.querySelector('.r-ribbon_title').href);return 0;}" style="cursor:pointer;overflow:hidden;position:relative;display:flex;flex-direction:column;padding:0;max-width:174px;min-width:174px;height:135px;font:400 10px/normal 'Akrobat Bold','Helvetica Neue','Arial',sans-serif;align-items:center;text-align:center;color:#000!important;text-shadow:none;background:url(${asset("restaurant-guru-2026.svg")}) no-repeat;box-sizing:border-box;">
+<div id="circle-r-ribbon" onclick="if(event.target.nodeName.toLowerCase() != 'a') {window.open(this.querySelector('.r-ribbon_title').href,'_blank','noopener,noreferrer');return 0;}" style="cursor:pointer;overflow:hidden;position:relative;display:flex;flex-direction:column;padding:0;max-width:174px;min-width:174px;height:135px;font:400 10px/normal 'Akrobat Bold','Helvetica Neue','Arial',sans-serif;align-items:center;text-align:center;color:#000!important;text-shadow:none;background:url(${asset("restaurant-guru-2026.svg")}) no-repeat;box-sizing:border-box;">
   <p style="color:#000;width:140px;font:22px 'Akrobat Black',sans-serif;font-style:italic;transform:rotate(-12deg);position:absolute;top:41px;left:12px;text-align:center;margin:0;">2026</p>
-  <a href="https://restaurantguru.com/Pho-Bay-noodle-Hornsby" class="r-ribbon_title" target="_blank" style="text-transform:uppercase;color:#fff!important;width:140px;font-size:16px;font-family:'Akrobat Bold',sans-serif;font-style:italic;transform:rotate(-12deg);position:absolute;z-index:5;top:72px;left:12px;text-align:center;text-decoration:none;">Pho Bay Noodle</a>
+  <a href="https://restaurantguru.com/Pho-Bay-noodle-Hornsby" class="r-ribbon_title" target="_blank" rel="noopener noreferrer" style="text-transform:uppercase;color:#fff!important;width:140px;font-size:16px;font-family:'Akrobat Bold',sans-serif;font-style:italic;transform:rotate(-12deg);position:absolute;z-index:5;top:72px;left:12px;text-align:center;text-decoration:none;">Pho Bay Noodle</a>
 </div>
 `;
 
 
+const SYDNEY_TIME_ZONE = "Australia/Sydney";
+
+const WEEKDAYS = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
+
 const weekdayName = (date) =>
-  date.toLocaleDateString("en-AU", { weekday: "long" });
+  date.toLocaleDateString("en-AU", {
+    weekday: "long",
+    timeZone: SYDNEY_TIME_ZONE,
+  });
 
 const getMarketFor = (date) =>
   locations.find((location) => location.shortDays.includes(weekdayName(date)));
 
 function getNextMarket(date) {
+  const todayIndex = WEEKDAYS.indexOf(weekdayName(date));
+
   for (let offset = 0; offset < 8; offset += 1) {
-    const candidate = new Date(date);
-    candidate.setDate(date.getDate() + offset);
-    const location = getMarketFor(candidate);
-    if (location) return { location, date: candidate, offset };
+    const weekday = WEEKDAYS[(todayIndex + offset) % WEEKDAYS.length];
+    const location = locations.find((entry) =>
+      entry.shortDays.includes(weekday),
+    );
+    if (location) return { location, weekday };
   }
   return null;
 }
 
-const formatDate = (date, options) => date.toLocaleDateString("en-AU", options);
+const formatDate = (date, options) =>
+  date.toLocaleDateString("en-AU", {
+    ...options,
+    timeZone: SYDNEY_TIME_ZONE,
+  });
 
 function Star({ className = "" }) {
   return (
@@ -332,8 +354,13 @@ function Header({ today, nextMarket, menuOpen, onOpenMenu }) {
   const todayLabel = today
     ? `Today · ${today.suburb}`
     : nextMarket
-      ? `Next · ${formatDate(nextMarket.date, { weekday: "short" })}`
+      ? `Next · ${nextMarket.weekday.slice(0, 3)}`
       : "Market days";
+  const marketLabel = today
+    ? `Today at ${today.name}, ${today.suburb}, ${today.time}. See today's market.`
+    : nextMarket
+      ? `Next market: ${nextMarket.weekday} at ${nextMarket.location.name}, ${nextMarket.location.suburb}, ${nextMarket.location.time}. See this week's market locations.`
+      : "See this week's market locations.";
 
   return (
     <header className="sticky top-0 z-50 border-b border-ink/15 bg-paper/90 backdrop-blur-md">
@@ -372,6 +399,7 @@ function Header({ today, nextMarket, menuOpen, onOpenMenu }) {
         <div className="flex items-center gap-2">
           <a
             href="#today"
+            aria-label={marketLabel}
             className={`header-chip group inline-flex items-center gap-2 whitespace-nowrap rounded-[2px] border border-ink/25 bg-gold py-0 text-[11px] font-semibold uppercase leading-none tracking-[0.12em] text-ink hover:bg-ink hover:text-cream ${
               scrolled ? "h-11 px-3 sm:px-4" : "h-12 px-4 sm:px-5"
             }`}
@@ -379,11 +407,6 @@ function Header({ today, nextMarket, menuOpen, onOpenMenu }) {
             <span className="h-2 w-2 shrink-0 rounded-full bg-red transition-colors group-hover:bg-gold" />
             <span className="hidden sm:inline">{todayLabel}</span>
             <span className="sm:hidden">{today ? "Today" : "Next"}</span>
-            <span className="sr-only">
-              {today
-                ? `, ${today.name}, ${today.suburb}. See today's market`
-                : ". See this week's market locations"}
-            </span>
           </a>
 
           <button
@@ -485,9 +508,7 @@ function MobileMenu({ open, onClose, today, nextMarket }) {
             {today
               ? `${today.suburb} · ${today.time}`
               : nextMarket
-                ? `${formatDate(nextMarket.date, {
-                    weekday: "long",
-                  })} · ${nextMarket.location.suburb} · ${nextMarket.location.time}`
+                ? `${nextMarket.weekday} · ${nextMarket.location.suburb} · ${nextMarket.location.time}`
                 : ""}
           </p>
           <a
@@ -542,9 +563,7 @@ function TodayTicket({ now, today, nextMarket }) {
         day: "numeric",
         month: "long",
       })}`
-    : `No market today · Next ${formatDate(nextMarket.date, {
-        weekday: "long",
-      })}`;
+    : `No market today · Next ${nextMarket.weekday}`;
 
   return (
     <div
@@ -818,7 +837,7 @@ function MenuSection({ onOpenImage }) {
                     height="900"
                     className="aspect-[4/3] w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.035] lg:aspect-auto lg:h-[26rem] xl:h-[30rem]"
                   />
-                  <span className="absolute right-3 top-3 flex h-10 w-10 items-center justify-center bg-cream/95 text-ink opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
+                  <span className="absolute right-3 top-3 flex h-10 w-10 items-center justify-center bg-cream/95 text-ink opacity-100 transition-opacity duration-300 lg:opacity-0 lg:group-hover:opacity-100 lg:group-focus-visible:opacity-100">
                     <Maximize2 size={16} strokeWidth={1.75} />
                   </span>
                 </button>
@@ -1170,9 +1189,15 @@ function Lightbox({ index, onClose, onChange }) {
       </div>
 
       <div
-        className="relative flex min-h-0 flex-1 items-center justify-center px-3 pb-3 sm:px-8 sm:pb-6"
+        className="relative flex min-h-0 flex-1 items-start justify-center overflow-y-auto overscroll-contain px-3 pb-3 sm:px-8 sm:pb-6"
         onMouseDown={(event) => {
-          if (event.target === event.currentTarget) close();
+          if (
+            event.target.closest("button") ||
+            event.target.tagName === "IMG"
+          ) {
+            return;
+          }
+          close();
         }}
       >
         <button
@@ -1184,11 +1209,11 @@ function Lightbox({ index, onClose, onChange }) {
           <ChevronLeft size={22} strokeWidth={1.75} />
         </button>
 
-        <figure className="flex min-h-0 w-full max-w-3xl flex-col items-center">
+        <figure className="m-auto flex min-h-0 w-full max-w-3xl flex-col items-center">
           <img
             src={asset(item.image)}
             alt={item.alt}
-            className="max-h-[68svh] w-auto max-w-[84vw] object-contain sm:max-w-full"
+            className="lightbox-image w-auto max-w-[84vw] object-contain sm:max-w-full"
           />
           <figcaption
             aria-live="polite"
@@ -1227,6 +1252,16 @@ export default function App() {
 
     const timer = window.setInterval(() => setNow(new Date()), 60_000);
     return () => window.clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    const desktop = window.matchMedia("(min-width: 1024px)");
+    const onChange = (event) => {
+      if (event.matches) setMenuOpen(false);
+    };
+
+    desktop.addEventListener("change", onChange);
+    return () => desktop.removeEventListener("change", onChange);
   }, []);
 
   const today = useMemo(() => getMarketFor(now), [now]);
