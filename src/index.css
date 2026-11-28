@@ -408,7 +408,7 @@ button:not(:disabled) {
 .ticker-track {
   display: flex;
   width: max-content;
-  animation: ticker 42s linear infinite;
+  animation: ticker 80s linear infinite;
 }
 
 .ticker {
