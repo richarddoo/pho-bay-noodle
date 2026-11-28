@@ -678,22 +678,20 @@ function Hero({ now, today, nextMarket }) {
 
 function MenuTicker() {
   const labels = menu.map((item) => item.category);
+  const sequence = [...labels, ...labels, ...labels, ...labels];
   const track = (hidden) => (
     <div
-      className="flex min-w-[100vw] shrink-0 items-center justify-around px-6"
+      className="flex shrink-0 items-center"
       aria-hidden={hidden || undefined}
     >
-      {labels.map((label, index) => (
-        <span key={label} className="flex items-center">
+      {sequence.map((label, index) => (
+        <span key={`${label}-${index}`} className="flex items-center">
           <span className="whitespace-nowrap font-display text-[1.35rem] font-medium italic tracking-[-0.02em] sm:text-[1.6rem]">
             {label}
           </span>
-          {index < labels.length - 1 && (
-            <Star className="mx-6 h-3 w-3 shrink-0 text-gold sm:mx-8" />
-          )}
+          <Star className="mx-7 h-3 w-3 shrink-0 text-gold sm:mx-10" />
         </span>
       ))}
-      <Star className="mx-6 h-3 w-3 shrink-0 text-gold sm:mx-8" />
     </div>
   );
 
